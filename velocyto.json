@@ -1,0 +1,40 @@
+{
+  "min_packer_version": "1.0.0",
+  "variables": {
+    "aws_region": "us-east-1",
+    "user": "{{env `USER`}}"
+  },
+  "builders": [{
+    "name": "ubuntu16-ami",
+    "ami_name": "{{user `user`}}-velocyto-{{isotime | clean_ami_name}}",
+    "ami_description": "An Ubuntu 16.04 AMI with velocyto, built on Anaconda 5.0.0 (Release Date: September 26, 2017)",
+    "instance_type": "t2.micro",
+    "region": "{{user `aws_region`}}",
+    "type": "amazon-ebs",
+    "source_ami_filter": {
+      "filters": {
+      "virtualization-type": "hvm",
+      "name": "{{user `user`}}-anaconda*",
+      "root-device-type": "ebs"
+      },
+      "owners": ["423543210473"],
+      "most_recent": true
+    },
+    "ssh_username": "ubuntu"
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "inline_shebang": "/bin/bash -le",
+    "inline": [
+      "sleep 30",
+      "sudo apt-get update",
+      "sudo apt-get install -y gcc libgl1-mesa-dev",
+      "conda install numpy scipy cython scikit-learn h5py click matplotlib numba cython",
+      "pip install loompy pysam",
+      "git clone https://github.com/velocyto-team/velocyto.py.git",
+      "cd velocyto.py",
+      "pip install .",
+      "velocyto --help"
+    ]
+  }]
+}
