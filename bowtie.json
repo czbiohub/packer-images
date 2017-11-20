@@ -24,7 +24,8 @@
   }],
   "provisioners": [{
     "type": "shell",
-    "script": "scripts/bowtie.sh",
+    "scripts": ["scripts/sleep_until_dpkg.sh", 
+                "scripts/bowtie.sh"],
     "expect_disconnect": true
   }]
 }
