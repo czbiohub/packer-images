@@ -4,4 +4,6 @@ for try in {1..100}; do if [[ $try -gt 1 ]]; then echo "sleeping 10 sec"; sleep 
 sudo apt-get -f install
 yes | sudo apt-get install make
 yes | sudo apt-get install g++
+yes | sudo apt-get install python-pip
+sudo pip install --upgrade pip
 exit 0
