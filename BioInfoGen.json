@@ -1,0 +1,38 @@
+
+{
+  "min_packer_version": "1.0.0",
+  "variables": {
+    "aws_region": "us-west-2",
+    "user": "{{env `USER`}}"
+  },
+  "builders": [{
+    "name": "ubuntu16-ami",
+    "ami_name": "rtleenay-bioinfo-image",
+    "ami_description": "An Ubuntu 16.04 AMI with necessary software for deep sequencing analysis",
+    "instance_type": "m4.large",
+    "region": "{{user `aws_region`}}",
+    "type": "amazon-ebs",
+    "source_ami_filter": {
+      "filters": {
+      "virtualization-type": "hvm",
+      "name": "czi-base-ubuntu16-*",
+      "root-device-type": "ebs"
+      },
+      "owners": [787588439240],
+      "most_recent": true
+    },
+    "ssh_username": "ubuntu"
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "scripts": ["scripts/sleep_until_dpkg.sh", 
+                "scripts/bowtie.sh",
+                "scripts/tophat.sh",
+                "scripts/biopython.sh",
+                "scripts/BWA.sh",
+                "scripts/FastXtoolkit.sh",
+                "scripts/GATK.sh",
+                "scripts/MAGeCK.sh"],
+    "expect_disconnect": true
+    }]
+}
