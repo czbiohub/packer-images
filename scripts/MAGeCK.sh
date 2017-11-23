@@ -19,11 +19,9 @@ cd bin
 
 progdir=$(pwd)
 
-mkdir $HOME/bin
-
-sudo cp $progdir/mageck $HOME/bin
-sudo cp $progdir/mageckGSEA $HOME/bin
-sudo cp $progdir/RRA $HOME/bin
+sudo cp $progdir/mageck /usr/local/bin
+sudo cp $progdir/mageckGSEA /usr/local/bin
+sudo cp $progdir/RRA /usr/local/bin
 
 sudo rm -r /home/ubuntu/MAGeCKlatest
 sudo rm /home/ubuntu/MAGeCKlatest.tar.gz
