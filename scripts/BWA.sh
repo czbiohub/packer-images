@@ -11,8 +11,7 @@ cd $version
 make
 currdir=$(pwd)
 
-mkdir $HOME/bin
-sudo cp $currdir/bwa $HOME/bin
+sudo cp $currdir/bwa /usr/local/bin
 
 
 sudo rm /home/ubuntu/bwalatest.tar.bz2
