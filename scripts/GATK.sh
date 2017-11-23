@@ -19,8 +19,8 @@ cd $version
 GATKpath=$(pwd)
 GATKfile=$(ls)
 	
-mkdir /home/ubuntu/programs
-sudo cp $GATKpath/$GATKfile /home/ubuntu/programs
+
+sudo cp $GATKpath/$GATKfile /usr/local/bin
 
 sudo rm -r /home/ubuntu/GATKlatest
 sudo rm /home/ubuntu/GATKlatest.tar.bz2
