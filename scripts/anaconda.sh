@@ -1,7 +1,7 @@
 #!/bin/bash
 
-wget --quiet https://repo.continuum.io/archive/Anaconda3-5.0.1-Linux-x86_64.sh -O anaconda.sh
-bash anaconda.sh -b -p $HOME/anaconda
+wget --quiet https://repo.continuum.io/archive/Anaconda3-5.0.1-Linux-x86_64.sh -O /tmp/anaconda.sh
+bash /tmp/anaconda.sh -b -p $HOME/anaconda
 
 export PATH=$HOME/anaconda/bin:$PATH
 echo 'export PATH=$HOME/anaconda/bin:$PATH' >> ~/.bashrc
