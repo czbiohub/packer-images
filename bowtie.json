@@ -1,23 +1,21 @@
 {
   "min_packer_version": "1.0.0",
   "variables": {
-    "aws_region": "us-west-2",
-    "user": "{{env `USER`}}"
+    "aws_region": "us-west-2"
   },
   "builders": [{
-    "name": "ubuntu16-ami",
-    "ami_name": "czbiohub-bowtie-shared",
-    "ami_description": "An Ubuntu 16.04 AMI with necessary software for Bowtie",
+    "ami_name": "czbiohub-bowtie-{{isotime | clean_ami_name}}",
+    "ami_description": "An Ubuntu 16.04 AMI with Bowtie installed",
     "instance_type": "m4.large",
     "region": "{{user `aws_region`}}",
     "type": "amazon-ebs",
     "source_ami_filter": {
       "filters": {
-      "virtualization-type": "hvm",
-      "name": "czi-base-ubuntu16-*",
-      "root-device-type": "ebs"
+        "virtualization-type": "hvm",
+        "name": "czbiohub-ubuntu16-*",
+        "root-device-type": "ebs"
       },
-      "owners": [787588439240],
+      "owners": [423543210473],
       "most_recent": true
     },
     "ssh_username": "ubuntu"
@@ -26,6 +24,5 @@
     "type": "shell",
     "scripts": ["scripts/sleep_until_dpkg.sh", 
                 "scripts/bowtie.sh"],
-    "expect_disconnect": true
   }]
 }

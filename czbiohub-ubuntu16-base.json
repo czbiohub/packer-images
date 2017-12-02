@@ -4,7 +4,6 @@
     "aws_region": "us-west-2"
   },
   "builders": [{
-    "name": "ubuntu16-ami",
     "ami_name": "czbiohub-ubuntu16-{{isotime | clean_ami_name}}",
     "ami_description": "CZ Biohub base image for ubuntu",
     "ami_regions": ["us-east-1", "us-west-2"],
