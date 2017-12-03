@@ -2,18 +2,33 @@
 
 Repository for Biohub packer images
 
+# Images for general use
+
+All AMIs are in the US-West-2 (Oregon) region.
+
+| Image Name | latest AMI ID | Description |
+| --- | --- | --- |
+| `czbiohub-ubuntu16-[DATE]` | ami-02ed337a | Updated Ubuntu with `make`, `g++`, and `awscli` |
+| `czbiohub-anaconda-[VERSION]-[DATE]` | ami-xxxxxxx | Ubuntu16 + Anaconda 5.0.1 | 
+| `czbiohub-bowtie2-[DATA]` | ami-xxxxxxx | Anaconda + Bowtie2 |
+
 
 ## Workflow
 
 If you're having trouble with any of these steps, ask in #eng-support
 
-0. check out the repo
+0. clone the repo with `git clone https://github.com/czbiohub/packer-images.git`
 0. create a branch
-0. copy ubuntu-example.json
+    * In the command line, you can type `git checkout -b [branch name]`
+0. copy an existing image file, e.g. `anaconda-example.json`
 0. change "ami_name" and "ami_description" to something descriptive
+    * For personal images, use the convention [USERNAME]-ami-name-[DATE]. See `anaconda-example.json` for a template.
+    * Shared images should start with `czbiohub`.
 0. update the provisioner, build, run your instance, repeat until you're satisfied
 0. push your branch and send a pull request
-
+    * To push a branch, use `git push --set-upstream origin [your branch name]`
+    * The branch should appear here on the [repository website](https://github.com/czbiohub/packer-images) and there will be a link to make a new Pull Request.
+    * Describe your changes in the text box and (optionally) request reviewers.
 
 ## Why this repo?
 
