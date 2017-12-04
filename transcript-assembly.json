@@ -1,0 +1,50 @@
+{
+  "min_packer_version": "1.0.0",
+  "variables": {
+    "aws_region": "us-west-2",
+    "user": "{{env `USER`}}"
+  },
+  "builders": [{
+    "name": "ubuntu16-ami",
+    "ami_name": "{{user `user`}}-czirna1-{{isotime | clean_ami_name}}",
+    "ami_description": "An Ubuntu 16.04 AMI with my stuffs",
+    "instance_type": "t2.micro",
+    "region": "{{user `aws_region`}}",
+    "type": "amazon-ebs",
+    "source_ami_filter": {
+      "filters": {
+        "virtualization-type": "hvm",
+        "name": "ubuntu/images/*ubuntu-xenial-16.04-amd64-server-*",
+        "root-device-type": "ebs"
+      },
+      "owners": ["099720109477"],
+      "most_recent": true
+    },
+    "ssh_username": "ubuntu"
+    }],
+    "provisioners": [
+      {
+        "type": "file",
+        "source": "/Users/olgabot/code/cziRna1/cziRna1.so",
+        "destination": "/tmp/cziRna1.so"
+      },
+      {
+        "type": "file",
+        "source": "/Users/olgabot/code/cziRna1/Spyros-3cells.py",
+        "destination": "/tmp/Spyros-3cells.py"
+      },
+      {
+        "type": "shell",
+        "execute_command": "{{ .Vars }} /bin/bash -vx {{ .Path }}",
+        "inline": [
+          "sleep 30",
+          "sudo apt-get update",
+          "sudo apt-get install -y libboost-all-dev python3-all-dev graphviz git",
+          "sudo cp /tmp/cziRna1.so /usr/local/bin/",
+          "sudo cp /tmp/Spyros-3cells.py /usr/local/bin/",
+          "sudo chmod ugo+x /usr/local/bin/Spyros-3cells.py",
+          "sudo chmod ugo+x /usr/local/bin/cziRna1.so"
+        ]
+      }
+    ]
+  }
