@@ -7,10 +7,10 @@ Repository for Biohub packer images
 All AMIs are in the US-West-2 (Oregon) region.
 
 | Image Name | latest AMI ID | Description |
-| --- | --- | --- |
-| `czbiohub-ubuntu16-[DATE]` | ami-02ed337a | Updated Ubuntu with `make`, `g++`, and `awscli` |
-| `czbiohub-anaconda-[VERSION]-[DATE]` | ami-xxxxxxx | Ubuntu16 + Anaconda 5.0.1 | 
-| `czbiohub-bowtie2-[DATA]` | ami-xxxxxxx | Anaconda + Bowtie2 |
+| ---------- | ------------- | ----------- |
+| `czbiohub-ubuntu16-[DATE]` | ami-02ed337a | Ubuntu with updates, `make`, `g++`, and `awscli` |
+| `czbiohub-anaconda-5.0.1-[DATE]` | ami-xxxxxxx | Ubuntu16 + Anaconda3 5.0.1 | 
+| `czbiohub-bowtie2-[DATE]` | ami-xxxxxxx | Anaconda + Bowtie2 |
 
 
 ## Workflow
@@ -21,6 +21,7 @@ If you're having trouble with any of these steps, ask in #eng-support
 0. create a branch
     * In the command line, you can type `git checkout -b [branch name]`
 0. copy an existing image file, e.g. `anaconda-example.json`
+    * Unless you have a good reason to avoid doing so, start from `czbiohub-anaconda-*` or an image deriving from there. That way you'll have a standardized environment for running scripts, installing tools, etc.
 0. change "ami_name" and "ami_description" to something descriptive
     * For personal images, use the convention [USERNAME]-ami-name-[DATE]. See `anaconda-example.json` for a template.
     * Shared images should start with `czbiohub`.
