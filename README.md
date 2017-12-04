@@ -19,16 +19,16 @@ If you're having trouble with any of these steps, ask in #eng-support
 
 0. clone the repo with `git clone https://github.com/czbiohub/packer-images.git`
 0. create a branch
-    * In the command line, you can type `git checkout -b [branch name]`
+   * In the command line, you can type `git checkout -b [branch name]`
 0. copy an existing image file, e.g. `anaconda-example.json`
-    * Unless you have a good reason to avoid doing so, start from `czbiohub-anaconda-*` or an image deriving from there. That way you'll have a standardized environment for running scripts, installing tools, etc.
+   * Unless you have a good reason to avoid doing so, start from `czbiohub-anaconda-*` or an image deriving from there. That way you'll have a standardized environment for running scripts, installing tools, etc.
 0. change "ami_name" and "ami_description" to something descriptive
-    * For personal images, use the convention [USERNAME]-ami-name-[DATE]. See `anaconda-example.json` for a template.
-    * Shared images should start with `czbiohub`.
+   * For personal images, use the convention [USERNAME]-ami-name-[DATE]. See `anaconda-example.json` for a template.
+   * Shared images should start with `czbiohub`.
 0. update the provisioner, build, run your instance, repeat until you're satisfied
 0. push your branch and send a pull request
-    * To push a branch, use `git push --set-upstream origin [your branch name]`
-    * The branch should appear here on the [repository website](https://github.com/czbiohub/packer-images) and there will be a link to make a new Pull Request.
+   * To push a branch, use `git push --set-upstream origin [your branch name]`
+   * The branch should appear here on the [repository website](https://github.com/czbiohub/packer-images) and there will be a link to make a new Pull Request.
     * Describe your changes in the text box and (optionally) request reviewers.
 
 ## Why this repo?
