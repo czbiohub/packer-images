@@ -4,13 +4,14 @@ Repository for Biohub packer images
 
 # Images for general use
 
-All AMIs are in the US-West-2 (Oregon) region.
+All AMIs are in the `us-west-2` (Oregon) region.
 
 | Image Name | latest AMI ID | Description |
 | ---------- | ------------- | ----------- |
-| `czbiohub-ubuntu16-[DATE]` | ami-02ed337a | Ubuntu with updates, `make`, `g++`, and `awscli` |
-| `czbiohub-anaconda-5.0.1-[DATE]` | ami-xxxxxxx | Ubuntu16 + Anaconda3 5.0.1 | 
-| `czbiohub-bowtie2-[DATE]` | ami-xxxxxxx | Anaconda + Bowtie2 |
+| `czbiohub-ubuntu16-*` | ami-8627fcfe | Ubuntu with updates, `make`, `g++`, and `awscli` |
+| `czbiohub-anaconda-5.0.1-*` | ami-e925fe91 | Ubuntu16 + Anaconda3 5.0.1 | 
+| `czbiohub-bowtie2-*` | ami-ba4e95c2 | Anaconda3 + Bowtie2 |
+| `czbiohub-star-and-htseq-*` | ami-f64f948e | Anaconda3 + STAR 2.5.2b and HTSeq |
 
 
 ## Workflow
@@ -19,17 +20,22 @@ If you're having trouble with any of these steps, ask in #eng-support
 
 0. clone the repo with `git clone https://github.com/czbiohub/packer-images.git`
 0. create a branch
-   * In the command line, you can type `git checkout -b [branch name]`
+   * In the command line, you can type `git checkout -b [your branch name]`
 0. copy an existing image file, e.g. `anaconda-example.json`
    * Unless you have a good reason to avoid doing so, start from `czbiohub-anaconda-*` or an image deriving from there. That way you'll have a standardized environment for running scripts, installing tools, etc.
 0. change "ami_name" and "ami_description" to something descriptive
-   * For personal images, use the convention [USERNAME]-ami-name-[DATE]. See `anaconda-example.json` for a template.
+   * For personal images, use the convention [USERNAME]-ami_name-[DATE]. See `anaconda-example.json` for a template.
    * Shared images should start with `czbiohub`.
 0. update the provisioner, build, run your instance, repeat until you're satisfied
 0. push your branch and send a pull request
    * To push a branch, use `git push --set-upstream origin [your branch name]`
    * The branch should appear here on the [repository website](https://github.com/czbiohub/packer-images) and there will be a link to make a new Pull Request.
-    * Describe your changes in the text box and (optionally) request reviewers.
+   * Describe your changes in the text box and (optionally) request reviewers.
+
+### Tips and tricks
+
+* The Packer instance might not be ready immediately. You can use `"pause_before": "30s"` in your provisioner to wait before trying to run commands.
+* The inline shell won't run `.bashrc` and therefore doesn't have `conda` on the path. If you want to install a package using `conda install`, add `"export PATH=$HOME/anaconda/bin:$PATH"` to your list of shell commands.
 
 ## Why this repo?
 
@@ -60,7 +66,6 @@ You can then log on to your instance with `aegea ssh`, so continuing our example
 
 ```
 ➜  ~ aegea ssh ubuntu@olgabot-anaconda
-zsh: correct 'ssh' to '.ssh' [nyae]? n
 Warning: Permanently added the RSA host key for IP address '34.229.183.249' to the list of known hosts.
 Welcome to Ubuntu 16.04.3 LTS (GNU/Linux 4.4.0-1038-aws x86_64)
 
