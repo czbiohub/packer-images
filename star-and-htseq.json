@@ -6,7 +6,7 @@
   "builders": [{
     "ami_name": "czbiohub-star-htseq-{{isotime \"2006-01-02\" | clean_ami_name}}",
     "ami_description": "An Ubuntu 16.04 AMI with Anaconda and my special stuff",
-    "ami_regions": ["us-east-1", "us-west-2"],
+    "ami_regions": ["us-east-1"],
     "instance_type": "t2.micro",
     "region": "{{user `aws_region`}}",
     "type": "amazon-ebs",
