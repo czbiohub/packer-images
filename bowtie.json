@@ -4,15 +4,15 @@
     "aws_region": "us-west-2"
   },
   "builders": [{
-    "ami_name": "czbiohub-bowtie-{{isotime | clean_ami_name}}",
-    "ami_description": "An Ubuntu 16.04 AMI with Bowtie installed",
-    "instance_type": "m4.large",
+    "ami_name": "czbiohub-bowtie2-{{isotime \"2006-01-02\" | clean_ami_name}}",
+    "ami_description": "An Ubuntu 16.04 AMI with Bowtie2 installed",
+    "instance_type": "t2.micro",
     "region": "{{user `aws_region`}}",
     "type": "amazon-ebs",
     "source_ami_filter": {
       "filters": {
         "virtualization-type": "hvm",
-        "name": "czbiohub-ubuntu16-*",
+        "name": "czbiohub-anaconda-*",
         "root-device-type": "ebs"
       },
       "owners": [423543210473],
@@ -22,7 +22,11 @@
   }],
   "provisioners": [{
     "type": "shell",
-    "scripts": ["scripts/sleep_until_dpkg.sh", 
-                "scripts/bowtie.sh"],
+    "inline": [
+      "export PATH=$HOME/anaconda/bin:$PATH",
+      "conda install bowtie2"
+    ],
+    "pause_before": "30s",
+    "inline_shebang": "/bin/bash -ex"
   }]
 }

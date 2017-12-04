@@ -4,9 +4,8 @@
     "aws_region": "us-west-2"
   },
   "builders": [{
-    "ami_name": "czbiohub-ubuntu16-{{isotime | clean_ami_name}}",
-    "ami_description": "CZ Biohub base image for ubuntu",
-    "ami_regions": ["us-east-1", "us-west-2"],
+    "ami_name": "czbiohub-ubuntu16-{{isotime \"2006-01-02\" | clean_ami_name}}",
+    "ami_description": "CZ Biohub base image for Ubuntu",
     "instance_type": "t2.micro",
     "region": "{{user `aws_region`}}",
     "type": "amazon-ebs",
@@ -25,6 +24,7 @@
   }],
   "provisioners": [{
     "type": "shell",
-    "script": "scripts/sleep_until_dpkg.sh"
+    "script": "scripts/sleep_until_dpkg.sh",
+    "pause_before": "60s"
   }]
 }

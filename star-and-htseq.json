@@ -4,8 +4,8 @@
     "aws_region": "us-west-2"
   },
   "builders": [{
-    "ami_name": "czbiohub-anaconda-5.0.1-{{isotime \"2006-01-02\" | clean_ami_name}}",
-    "ami_description": "An Ubuntu 16.04 AMI with Anaconda 5.0.1 (Release Date: October 24, 2017)",
+    "ami_name": "czbiohub-star-htseq-{{isotime \"2006-01-02\" | clean_ami_name}}",
+    "ami_description": "An Ubuntu 16.04 AMI with Anaconda and my special stuff",
     "ami_regions": ["us-east-1", "us-west-2"],
     "instance_type": "t2.micro",
     "region": "{{user `aws_region`}}",
@@ -13,7 +13,7 @@
     "source_ami_filter": {
       "filters": {
         "virtualization-type": "hvm",
-        "name": "czbiohub-ubuntu16-*",
+        "name": "czbiohub-anaconda-*",
         "root-device-type": "ebs"
       },
       "owners": [423543210473],
@@ -23,7 +23,12 @@
   }],
   "provisioners": [{
     "type": "shell",
-    "script": "scripts/anaconda.sh",
-    "pause_before": "30s"
+    "inline": [
+      "export PATH=$HOME/anaconda/bin:$PATH",
+      "conda install star=2.5.2b",
+      "conda install htseq"
+    ],
+    "pause_before": "30s",
+    "inline_shebang": "/bin/bash -ex"
   }]
 }
