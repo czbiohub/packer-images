@@ -23,6 +23,7 @@
   "provisioners": [{
     "type": "shell",
     "script": "scripts/nanopore.sh",
-    "pause_before": "30s"
+    "pause_before": "30s",
+    "expect_disconnect": true
   }]
 }
