@@ -5,7 +5,7 @@
   },
   "builders": [{
     "ami_name": "czbiohub-nanopore-{{isotime \"2006-01-02\" | clean_ami_name}}",
-    "ami_description": "An Ubuntu 16.04 AMI with Anaconda and my special stuff",
+    "ami_description": "An Ubuntu 16.04 AMI with Albacore and Pomoxis",
     "instance_type": "m4.xlarge",
     "region": "{{user `aws_region`}}",
     "type": "amazon-ebs",

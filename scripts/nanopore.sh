@@ -15,9 +15,9 @@ yes | sudo apt-get install libblas*
 
 CFLAGS="-I/usr/include/hdf5/serial" CPPFLAGS="-I/usr/include/hdf5/serial" make install
 
-wget -P /tmp/ https://mirror.oxfordnanoportal.com/software/analysis/ont_albacore-2.1.3-cp36-cp36m-manylinux1_x86_64.whl
-
 conda install biopython
+
+wget -P /tmp/ https://mirror.oxfordnanoportal.com/software/analysis/ont_albacore-2.1.3-cp36-cp36m-manylinux1_x86_64.whl
 
 conda create -n albacore python=3
 source activate albacore
