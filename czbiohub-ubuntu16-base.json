@@ -6,6 +6,9 @@
   "builders": [{
     "ami_name": "czbiohub-ubuntu16-{{isotime \"2006-01-02\" | clean_ami_name}}",
     "ami_description": "CZ Biohub base image for Ubuntu",
+    "tags": {
+      "Name": "czbiohub-ubuntu16"
+    },
     "instance_type": "t2.micro",
     "region": "{{user `aws_region`}}",
     "type": "amazon-ebs",

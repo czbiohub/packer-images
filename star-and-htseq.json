@@ -5,8 +5,11 @@
   },
   "builders": [{
     "ami_name": "czbiohub-star-htseq-{{isotime \"2006-01-02\" | clean_ami_name}}",
-    "ami_description": "An Ubuntu 16.04 AMI with Anaconda and my special stuff",
+    "ami_description": "An Ubuntu 16.04 AMI with STAR 2.5.2b and htseq 0.9.1",
     "ami_regions": ["us-east-1"],
+    "tags": {
+      "Name": "czbiohub-star-htseq"
+    },
     "instance_type": "t2.micro",
     "region": "{{user `aws_region`}}",
     "type": "amazon-ebs",
@@ -26,7 +29,7 @@
     "inline": [
       "export PATH=$HOME/anaconda/bin:$PATH",
       "conda install star=2.5.2b",
-      "conda install htseq"
+      "conda install htseq=0.9.1"
     ],
     "pause_before": "30s",
     "inline_shebang": "/bin/bash -ex"
