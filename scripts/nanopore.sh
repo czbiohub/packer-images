@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 export PATH=$HOME/anaconda/bin:$PATH
 
@@ -30,7 +30,7 @@ cd pomoxis/
 
 echo "starting make"
 
-CFLAGS="-I/usr/include/hdf5/serial" CPPFLAGS="-I/usr/include/hdf5/serial" make install
+CFLAGS="-I/usr/include/hdf5/serial" CPPFLAGS="-I/usr/include/hdf5/serial" make V=1 install
 
 echo "done with pomoxis setup"
 
