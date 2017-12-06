@@ -1,20 +1,77 @@
 # packer-images
 
-Repository for Biohub packer images
+Repository for Biohub packer images and a guide on how to use them.
 
 # Images for general use
 
 All AMIs are in the `us-west-2` (Oregon) region.
 
-| Image Name | latest AMI ID | Description |
-| ---------- | ------------- | ----------- |
-| `czbiohub-ubuntu16-*` | ami-8627fcfe | Ubuntu with updates, `make`, `g++`, and `awscli` |
-| `czbiohub-anaconda-5.0.1-*` | ami-e925fe91 | Ubuntu16 + Anaconda3 5.0.1 | 
-| `czbiohub-bowtie2-*` | ami-ba4e95c2 | Anaconda3 + Bowtie2 |
-| `czbiohub-star-and-htseq-*` | ami-f64f948e | Anaconda3 + STAR 2.5.2b and HTSeq |
+| Stable Name | AMI Name | Description |
+| ----------- | -------- | ----------- |
+| `czbiohub-ubuntu16` | `czbiohub-ubuntu16-*` | Ubuntu with updates, `make`, `g++`, and `awscli` |
+| `czbiohub-anaconda` | `czbiohub-anaconda-5.0.1-*` | Ubuntu16 + Anaconda3 5.0.1 | 
+| `czbiohub-bowtie2` | `czbiohub-bowtie2-*` | Anaconda3 + latest Bowtie2 |
+| `czbiohub-star-htseq` | `czbiohub-star-htseq-*` | Anaconda3 + latest STAR and HTSeq |
 
 
-## Workflow
+## How to use the images
+
+You can run the image with `aegea launch`. Some useful options:
+
+* `--ami-tags [stable image name]` to get the latest version of one of the above images
+* Alternatively you can use `--ami [AMI ID]` to specify a particular Amazon machine image
+* Use the option `--iam-role S3fromEC2` to give your instance the ability to download and upload from our S3 buckets
+* `--instance-type` or `-t` specifies the size (CPUs, memory, etc) of the instance. See http://www.ec2instances.info for a useful guide to what is available
+
+The last argument is the **name** of the instance, which you will use to access it. In this example I launch an instance of our base Ubuntu16 image on a `t2.micro` machine with access to S3, and I call the instance `jwebber-test`.
+
+```shell
+➜  aegea launch --iam-role S3fromEC2 --ami-tags Name=czbiohub-ubuntu16 -t t2.micro  jwebber-test
+Identity added: /Users/james.webber/.ssh/aegea.launch.james.webber.webber-mbp.pem (/Users/james.webber/.ssh/aegea.launch.james.webber.webber-mbp.pem)
+{
+  "instance_id": "i-00340f4353ceb0a91"
+}
+```
+
+I can then use `aegea` to log on to the instance (the username for all of these images is `ubuntu`):
+
+```shell
+➜  aegea ssh ubuntu@jwebber-test
+Warning: Permanently added the RSA host key for IP address '34.212.166.93' to the list of known hosts.
+Welcome to Ubuntu 16.04.3 LTS (GNU/Linux 4.4.0-1041-aws x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  Get cloud support with Ubuntu Advantage Cloud Guest:
+    http://www.ubuntu.com/business/services/cloud
+
+0 packages can be updated.
+0 updates are security updates.
+
+
+ubuntu@jwebber-test:~$ aws s3 ls
+... [ list of S3 Buckets ] ...
+```
+
+If you're done using an instance for now but don't want to shut it down yet, you can suspend it with `aegea stop [instance name]` and it won't use any resources or cost any money. You can use `aegea start [instance name]` to start it up again:
+
+```shell
+➜  aegea stop jwebber-test
+... [some time later] ...
+➜  aegea start jwebber-test
+```
+
+If you're completely finished with an instance, use `aegea terminate`:
+
+```shell
+➜  aegea terminate jwebber-test
+```
+
+Terminating an instance will get rid of any changes you made while you were using it, so make sure to upload your results to S3 or copy it to a local computer.
+
+# Workflow for making a new image
 
 If you're having trouble with any of these steps, ask in #eng-support
 
@@ -32,7 +89,7 @@ If you're having trouble with any of these steps, ask in #eng-support
    * The branch should appear here on the [repository website](https://github.com/czbiohub/packer-images) and there will be a link to make a new Pull Request.
    * Describe your changes in the text box and (optionally) request reviewers.
 
-### Tips and tricks
+## Tips and tricks
 
 * The Packer instance might not be ready immediately. You can use `"pause_before": "30s"` in your provisioner to wait before trying to run commands.
 * The inline shell won't run `.bashrc` and therefore doesn't have `conda` on the path. If you want to install a package using `conda install`, add `"export PATH=$HOME/anaconda/bin:$PATH"` to your list of shell commands.
@@ -40,48 +97,3 @@ If you're having trouble with any of these steps, ask in #eng-support
 ## Why this repo?
 
 If you put your templates in this repo, the data-science and/CZI eng teams can help to do things like make updates, enforce best practices, etc.
-
-## How to use the images
-
-
-You can run the image with `aegea launch`, e.g.
-
-```
-➜  ~ aegea launch --instance-type t2.micro --duration-hours 2  --ami ami-70ee4b0a olgabot-anaconda                   
-Identity added: /Users/olgabot/.ssh/aegea.launch.olgabot.Olgas-MacBook-Pro.pem (/Users/olgabot/.ssh/aegea.launch.olgabot.Olgas-MacBook-Pro.pem)
-INFO:aegea:Launch spec user data is 1883 bytes long
-INFO:aegea:Launching <aegea.util.aws.spot.SpotFleetBuilder object at 0x10acfe940: {'cores': 1, 'dry_run': False, 'gpus_per_instance': 0, 'iam_fleet_role': iam.Role(name='SpotFleet'), ...}>
-INFO:aegea:Launched ec2.Instance(id='i-046b932d342d9960a') in ec2.Subnet(id='subnet-9cfc1fd4')
-{
-  "instance_id": "i-046b932d342d9960a"
-}
-```
-
-Where `ami-70ee4b0a` is the Amazon machine image ID and `olgabot-anaconda` is
-the name of the launched image.  `t2.micro` indicates the type of machine which
-means how powerful it is, i.e. how many CPUs, how much storage, memory, etc, and
-a helpful website for looking up AWS EC2 instances is http://www.ec2instances.info/
-
-You can then log on to your instance with `aegea ssh`, so continuing our example, that would be:
-
-```
-➜  ~ aegea ssh ubuntu@olgabot-anaconda
-Warning: Permanently added the RSA host key for IP address '34.229.183.249' to the list of known hosts.
-Welcome to Ubuntu 16.04.3 LTS (GNU/Linux 4.4.0-1038-aws x86_64)
-
- * Documentation:  https://help.ubuntu.com
- * Management:     https://landscape.canonical.com
- * Support:        https://ubuntu.com/advantage
-
-  Get cloud support with Ubuntu Advantage Cloud Guest:
-    http://www.ubuntu.com/business/services/cloud
-
-0 packages can be updated.
-0 updates are security updates.
-
-
-To run a command as administrator (user "root"), use "sudo <command>".
-See "man sudo_root" for details.
-
-ubuntu@olgabot-anaconda:~$
-```
