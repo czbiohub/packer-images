@@ -30,6 +30,7 @@ cd pomoxis/
 
 echo "starting make"
 
+
 CFLAGS="-I/usr/include/hdf5/serial" CPPFLAGS="-I/usr/include/hdf5/serial" make V=1 install
 
 echo "done with pomoxis setup"
