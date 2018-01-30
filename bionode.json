@@ -25,7 +25,7 @@
     }],
   "provisioners": [{
     "type": "shell",
-    "script": "scripts/bionode.sh",
+    "script": "scripts/sleep_until_dpkg.sh && scripts/bionode.sh",
     "pause_before": "30s",
     "expect_disconnect": true
   }]
