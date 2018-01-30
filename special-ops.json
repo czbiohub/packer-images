@@ -7,6 +7,9 @@
   "builders": [{
     "ami_name": "czbiohub-specops-{{isotime \"2006-01-02\" | clean_ami_name}}",
     "ami_description": "Ubuntu 16.04 w/ Anaconda and Special Ops tools",
+    "tags": {
+      "Name": "czbiohub-specops"
+    },
     "instance_type": "m4.4xlarge",
     "region": "{{user `aws_region`}}",
     "type": "amazon-ebs",
