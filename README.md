@@ -71,6 +71,7 @@ If you're completely finished with an instance, use `aegea terminate`:
 
 Terminating an instance will get rid of any changes you made while you were using it, so make sure to upload your results to S3 or copy it to a local computer.
 
+
 # Workflow for making a new image
 
 If you're having trouble with any of these steps, ask in #eng-support
@@ -88,6 +89,38 @@ If you're having trouble with any of these steps, ask in #eng-support
    * To push a branch, use `git push --set-upstream origin [your branch name]`
    * The branch should appear here on the [repository website](https://github.com/czbiohub/packer-images) and there will be a link to make a new Pull Request.
    * Describe your changes in the text box and (optionally) request reviewers.
+
+## Building the images
+
+To build an image you create, e.g. `bionode.json` use
+
+```
+packer build bionode.json
+```
+
+### `name conflicts` error
+
+If you're debugging an image, you may run into a `name conflicts` error:
+
+```
+ ✘  ~/code/packer-images   bionode ●  packer build bionode.json 
+amazon-ebs output will be in this color.
+
+==> amazon-ebs: Prevalidating AMI Name...
+==> amazon-ebs: Error: name conflicts with an existing AMI: ami-0768d07f
+Build 'amazon-ebs' errored: Error: name conflicts with an existing AMI: ami-0768d07f
+
+==> Some builds didn't complete successfully and had errors:
+--> amazon-ebs: Error: name conflicts with an existing AMI: ami-0768d07f
+
+==> Builds finished but no artifacts were created.
+```
+
+When this is the case, use `-force` to skip the name checking:
+
+```
+packer build -force bionode.json
+```
 
 ## Tips and tricks
 
