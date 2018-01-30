@@ -2,7 +2,7 @@
 
 
 echo "Installing Node and NPM"
-yes | sudo apt-get install nodejs npm
+yes | sudo apt-get install nodejs npm build-essential
 
 echo "Installing bionode"
 npm install bionode-ncbi -g
