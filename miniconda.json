@@ -1,0 +1,32 @@
+{
+  "min_packer_version": "1.0.0",
+  "variables": {
+    "aws_region": "us-west-2"
+  },
+  "builders": [{
+    "ami_name": "czbiohub-miniconda-{{isotime \"2006-01-02\" | clean_ami_name}}",
+    "ami_description": "An Ubuntu 16.04 AMI with Miniconda3",
+    "ami_regions": ["us-east-1"],
+    "tags": {
+      "Name": "czbiohub-miniconda"
+    },
+    "instance_type": "t2.micro",
+    "region": "{{user `aws_region`}}",
+    "type": "amazon-ebs",
+    "source_ami_filter": {
+      "filters": {
+        "virtualization-type": "hvm",
+        "name": "czbiohub-ubuntu16-*",
+        "root-device-type": "ebs"
+      },
+      "owners": [423543210473],
+      "most_recent": true
+    },
+    "ssh_username": "ubuntu"
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "script": "scripts/miniconda.sh",
+    "pause_before": "30s"
+  }]
+}
