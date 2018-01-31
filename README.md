@@ -103,7 +103,7 @@ packer build bionode.json
 If you're debugging an image, you may run into a `name conflicts` error:
 
 ```
- ✘  ~/code/packer-images   bionode ●  packer build bionode.json 
+➜  packer build bionode.json 
 amazon-ebs output will be in this color.
 
 ==> amazon-ebs: Prevalidating AMI Name...
@@ -116,10 +116,10 @@ Build 'amazon-ebs' errored: Error: name conflicts with an existing AMI: ami-0768
 ==> Builds finished but no artifacts were created.
 ```
 
-When this is the case, use `-force` to skip the name checking:
+This happens because our date convention for the name is YYYY-MM-DD, and so AMIs built on the same day will have the same name. Normally we don't rebuild images that often, but while you're debugging it can happen. When this is the case, use `-force` to skip the name checking:
 
 ```
-packer build -force bionode.json
+➜  packer build -force bionode.json
 ```
 
 ## Tips and tricks
