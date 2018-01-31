@@ -9,7 +9,7 @@
     "tags": {
       "Name": "czbiohub-nanopore"
     },
-    "instance_type": "m4.4xlarge",
+    "instance_type": "m4.xlarge",
     "region": "{{user `aws_region`}}",
     "type": "amazon-ebs",
     "source_ami_filter": {
