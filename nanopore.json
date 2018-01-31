@@ -6,14 +6,16 @@
   "builders": [{
     "ami_name": "czbiohub-nanopore-{{isotime \"2006-01-02\" | clean_ami_name}}",
     "ami_description": "An Ubuntu 16.04 AMI with Albacore and Pomoxis",
-    "tags": {"Name": "czbiohub-nanopore"},
-    "instance_type": "m4.xlarge",
+    "tags": {
+      "Name": "czbiohub-nanopore"
+    },
+    "instance_type": "m4.4xlarge",
     "region": "{{user `aws_region`}}",
     "type": "amazon-ebs",
     "source_ami_filter": {
       "filters": {
         "virtualization-type": "hvm",
-        "name": "czbiohub-anaconda-*",
+        "name": "czbiohub-miniconda-*",
         "root-device-type": "ebs"
       },
       "owners": [423543210473],
@@ -24,7 +26,6 @@
   "provisioners": [{
     "type": "shell",
     "script": "scripts/nanopore.sh",
-    "pause_before": "30s",
-    "expect_disconnect": true
+    "pause_before": "30s"
   }]
 }
