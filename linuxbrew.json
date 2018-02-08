@@ -5,15 +5,15 @@
     "user": "{{env `USER`}}"
   },
   "builders": [{
-    "ami_name": "{{user `user`}}-anaconda-{{isotime \"2006-01-02\" | clean_ami_name}}",
-    "ami_description": "An Ubuntu 16.04 AMI with Anaconda and my special stuff",
+    "ami_name": "{{user `user`}}-linuxbrew-{{isotime \"2006-01-02\" | clean_ami_name}}",
+    "ami_description": "An Ubuntu 16.04 AMI with LinuxBrew",
     "instance_type": "t2.micro",
     "region": "{{user `aws_region`}}",
     "type": "amazon-ebs",
     "source_ami_filter": {
       "filters": {
         "virtualization-type": "hvm",
-        "name": "czbiohub-anaconda-*",
+        "name": "czbiohub-ubuntu16-*",
         "root-device-type": "ebs"
       },
       "owners": [423543210473],
