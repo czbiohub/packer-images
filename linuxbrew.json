@@ -1,0 +1,30 @@
+{
+  "min_packer_version": "1.0.0",
+  "variables": {
+    "aws_region": "us-west-2",
+    "user": "{{env `USER`}}"
+  },
+  "builders": [{
+    "ami_name": "{{user `user`}}-anaconda-{{isotime \"2006-01-02\" | clean_ami_name}}",
+    "ami_description": "An Ubuntu 16.04 AMI with Anaconda and my special stuff",
+    "instance_type": "t2.micro",
+    "region": "{{user `aws_region`}}",
+    "type": "amazon-ebs",
+    "source_ami_filter": {
+      "filters": {
+        "virtualization-type": "hvm",
+        "name": "czbiohub-anaconda-*",
+        "root-device-type": "ebs"
+      },
+      "owners": [423543210473],
+      "most_recent": true
+    },
+    "ssh_username": "ubuntu"
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "script": "scripts/linuxbrew.sh",
+    "pause_before": "30s",
+    "inline_shebang": "/bin/bash -ex"
+  }]
+}
