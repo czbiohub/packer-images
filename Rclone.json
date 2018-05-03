@@ -1,0 +1,17 @@
+
+{
+  "min_packer_version": "1.0.0",
+  "variables": {
+    "aws_region": "us-east-1",
+    "user": "{{env `USER`}}"
+  },
+  "builders": [{
+    "type": "amazon-ebs",
+    "region": "us-east-1",
+    "source_ami": "ami-2951fa53",
+    "instance_type": "t1.micro",
+    "ssh_username": "ubuntu",
+    "ami_regions": [ "us-east-1", "us-west-2" ],
+    "ami_name": "packer-Rclone {{timestamp}}"
+  }]
+}
