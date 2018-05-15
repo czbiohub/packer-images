@@ -9,7 +9,7 @@ All AMIs are in the `us-west-2` (Oregon) region. The AMI name consists of the st
 | Stable Name | Description |
 | ----------- | ----------- |
 | `czbiohub-ubuntu16` | Ubuntu with updates, `make`, `g++`, and `awscli` |
-| `czbiohub-anaconda` | Ubuntu16 + Anaconda3 5.0.1 | 
+| `czbiohub-anaconda` | Ubuntu16 + Anaconda3 5.0.1 |
 | `czbiohub-miniconda` | Ubuntu16 + Miniconda3 (Anaconda3 with fewer packages installed) |
 | `czbiohub-bowtie2` | Anaconda3 + latest Bowtie2 |
 | `czbiohub-star-htseq` | Anaconda3 + latest STAR and HTSeq |
@@ -28,7 +28,7 @@ You can run the image with `aegea launch`. Some useful options:
 The last argument is the nam of the **instance**, which you will use to access it. In this example I launch an instance of our base Ubuntu16 image on a `t2.micro` machine with access to S3, and I call the instance `jwebber-test`.
 
 ```shell
-➜  aegea launch --iam-role S3fromEC2 --ami-tags Name=czbiohub-ubuntu16 -t t2.micro  jwebber-test
+➜   
 Identity added: /Users/james.webber/.ssh/aegea.launch.james.webber.webber-mbp.pem (/Users/james.webber/.ssh/aegea.launch.james.webber.webber-mbp.pem)
 {
   "instance_id": "i-00340f4353ceb0a91"
@@ -81,10 +81,10 @@ If you're having trouble with any of these steps, ask in #eng-support
 0. clone the repo with `git clone https://github.com/czbiohub/packer-images.git`
 0. create a branch
    * In the command line, you can type `git checkout -b [your branch name]`
-0. copy an existing image file, e.g. `anaconda-example.json`
-   * Unless you have a good reason to avoid doing so, start from `czbiohub-anaconda-*` or an image deriving from there. That way you'll have a standardized environment for running scripts, installing tools, etc.
+0. copy an existing image file, e.g. `miniconda-example.json`
+   * Unless you have a good reason to avoid doing so, start from `czbiohub-miniconda-*` or an image deriving from there. That way you'll have a standardized environment for running scripts, installing tools, etc.
 0. change "ami_name" and "ami_description" to something descriptive
-   * For personal images, use the convention [USERNAME]-ami_name-[DATE]. See `anaconda-example.json` for a template.
+   * For personal images, use the convention [USERNAME]-ami_name-[DATE]. See `miniconda-example.json` for a template.
    * Shared images should start with `czbiohub`.
 0. update the provisioner, build, run your instance, repeat until you're satisfied
 0. push your branch and send a pull request
@@ -105,7 +105,7 @@ packer build bionode.json
 If you're debugging an image, you may run into a `name conflicts` error:
 
 ```
-➜  packer build bionode.json 
+➜  packer build bionode.json
 amazon-ebs output will be in this color.
 
 ==> amazon-ebs: Prevalidating AMI Name...
