@@ -24,7 +24,6 @@
   "provisioners": [{
     "type": "shell",
     "script": "scripts/igrec.sh",
-    "pause_before": "30s",
-    "expect_disconnect": true
+    "pause_before": "30s"
   }]
 }
