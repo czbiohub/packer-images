@@ -5,7 +5,7 @@
     "user": "{{env `USER`}}"
   },
   "builders": [{
-    "ami_name": "{{user `user`}}-anaconda-{{isotime \"2006-01-02\" | clean_ami_name}}",
+    "ami_name": "{{user `user`}}-miniconda-{{isotime \"2006-01-02\" | clean_ami_name}}",
     "ami_description": "An Ubuntu 16.04 AMI with Miniconda and my special stuff",
     "instance_type": "t2.micro",
     "region": "{{user `aws_region`}}",
