@@ -25,6 +25,6 @@
     "type": "shell",
     "script": "scripts/example.sh",
     "pause_before": "30s",
-    "inline_shebang": "/bin/bash -ex",
+    "inline_shebang": "/bin/bash -ex"
   }]
 }
