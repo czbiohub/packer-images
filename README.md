@@ -10,7 +10,7 @@ All AMIs are in the `us-west-2` (Oregon) region. The AMI name consists of the st
 | ----------- | ----------- |
 | `czbiohub-ubuntu16` | Ubuntu with updates, `make`, `g++`, and `awscli` |
 | `czbiohub-anaconda` | Ubuntu16 + Anaconda3 5.0.1 |
-| `czbiohub-miniconda` | Ubuntu16 + Miniconda3 (Anaconda3 with fewer packages installed) |
+| `czbiohub-miniconda` | Ubuntu16 + Miniconda3 (Anaconda3 with fewer packages installed) - has 1000 gigabytes of storage at `/mnt/data` |
 | `czbiohub-bowtie2` | Anaconda3 + latest Bowtie2 |
 | `czbiohub-star-htseq` | Anaconda3 + latest STAR and HTSeq |
 | `czbiohub-nanopore` | Miniconda3 + albacore and pomoxis |
@@ -28,7 +28,7 @@ You can run the image with `aegea launch`. Some useful options:
 The last argument is the nam of the **instance**, which you will use to access it. In this example I launch an instance of our base Ubuntu16 image on a `t2.micro` machine with access to S3, and I call the instance `jwebber-test`.
 
 ```shell
-➜ aegea launch --iam-role S3fromEC2 --ami-tags Name=czbiohub-ubuntu16 -t t2.micro  jwebber-test
+➜ aegea launch --iam-role S3fromEC2 --ami-tags Name=czbiohub-miniconda -t t2.micro  jwebber-test
 Identity added: /Users/james.webber/.ssh/aegea.launch.james.webber.webber-mbp.pem (/Users/james.webber/.ssh/aegea.launch.james.webber.webber-mbp.pem)
 {
   "instance_id": "i-00340f4353ceb0a91"
