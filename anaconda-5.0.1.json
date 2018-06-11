@@ -26,7 +26,8 @@
   }],
   "provisioners": [{
     "type": "shell",
-    "script": "scripts/anaconda.sh",
+    "scripts": ["scripts/anaconda.sh",
+                "scripts/conda_setup.sh"],
     "pause_before": "30s"
   }]
 }

@@ -39,7 +39,8 @@
   "provisioners": [{
     "type": "shell",
     "scripts": ["scripts/format_xvde.sh",
-                "scripts/miniconda.sh"],
+                "scripts/miniconda.sh",
+                "scripts/conda_setup.sh"],
     "pause_before": "30s"
   }]
 }

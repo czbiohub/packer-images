@@ -12,13 +12,16 @@ conda install --verbose clustalo
 conda install --verbose progressiveMauve
 conda install --verbose dbg2olc
 conda install --verbose spades
+conda install --verbose unicycler
+
+yes | conda clean --all
 
 # srst2 requires python 2.7, gets its own environment
 # it depends on bowtie2 so that will go in here too
 echo "creating a python 2.7 environment for bowtie2 and srst2"
-conda create --name bowtie2 python=2.7 bowtie2 srst2
+conda create --name py2 python=2.7 bowtie2 srst2 rseqc
 
-yes | conda clean --tarballs
+yes | conda clean --all
 
 df -h
 
@@ -28,7 +31,7 @@ yes | sudo apt-get install alien
 df -h
 
 wget -P /tmp/ ftp://ftp.ncbi.nlm.nih.gov/blast/executables/magicblast/1.0.0/ncbi-magicblast-1.0.0-1.x86_64.rpm
-sudo alien -i /tmp/ncbi-magicblast-1.0.0-1.x86_64.rpm 
+sudo alien -i /tmp/ncbi-magicblast-1.0.0-1.x86_64.rpm
 
 echo "downloading and installing PRICE"
 PRICE_PATH=http://derisilab.ucsf.edu/software/price/PriceSource140408.tar.gz

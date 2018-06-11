@@ -15,7 +15,7 @@
     "source_ami_filter": {
       "filters": {
         "virtualization-type": "hvm",
-        "name": "czbiohub-anaconda-*",
+        "name": "czbiohub-miniconda-*",
         "root-device-type": "ebs"
       },
       "owners": [423543210473],
