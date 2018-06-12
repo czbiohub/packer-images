@@ -1,0 +1,43 @@
+{
+  "min_packer_version": "1.0.0",
+  "variables": {
+    "aws_region": "us-west-2"
+  },
+  "builders": [{
+    "ami_name": "czbiohub-jupyter-{{isotime \"2006-01-02\" | clean_ami_name}}",
+    "ami_description": "An Ubuntu 16.04 AMI with Jupyter notebook configured as port 8888",
+    "tags": {
+      "Name": "czbiohub-jupyter"
+    },
+    "instance_type": "m4.xlarge",
+    "region": "{{user `aws_region`}}",
+    "type": "amazon-ebs",
+    "source_ami_filter": {
+      "filters": {
+        "virtualization-type": "hvm",
+        "name": "czbiohub-miniconda-*",
+        "root-device-type": "ebs"
+      },
+      "owners": [423543210473],
+      "most_recent": true
+    },
+    "ssh_username": "ubuntu",
+    "security_group_id": "sg-09ddf4bd5d75f94b2"
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "script": "scripts/jupyter.sh",
+    "pause_before": "30s"
+  },
+  {
+    "type": "file",
+    "source": "assets/jupyter_notebook_config.py",
+    "destination": "/home/ubuntu/.jupyter/jupyter_notebook_config.py"
+  },
+  {
+    "type": "file",
+    "source": "assets/biohub-certificate.pem",
+    "destination": "/home/ubuntu/certificates/biohub-certificate.pem"
+  }
+]
+}
