@@ -31,13 +31,13 @@
   },
   {
     "type": "file",
-    "source": "assets/jupyter_notebook_config.py",
-    "destination": "/home/ubuntu/.jupyter/jupyter_notebook_config.py"
+    "source": "assets/.jupyter",
+    "destination": "/home/ubuntu/"
   },
   {
     "type": "file",
-    "source": "assets/biohub-certificate.pem",
-    "destination": "/home/ubuntu/certificates/biohub-certificate.pem"
+    "source": "assets/certificates",
+    "destination": "/home/ubuntu/"
   }
 ]
 }
