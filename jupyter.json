@@ -31,13 +31,8 @@
   },
   {
     "type": "file",
-    "source": "assets/.jupyter",
+    "source": "assets/jupyter/.jupyter",
     "destination": "/home/ubuntu/"
   },
-  {
-    "type": "file",
-    "source": "assets/certificates",
-    "destination": "/home/ubuntu/"
-  }
 ]
 }
