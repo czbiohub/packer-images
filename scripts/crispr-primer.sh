@@ -1,4 +1,4 @@
-set -xe
+# TODO: can we use set -xe??
 
 sudo apt-get install unzip
 sudo apt-get -f install --yes && sudo dpkg --configure -a
@@ -20,3 +20,6 @@ twoBitToFa hg38.2bit hg38.fa
 wget http://hgdownload.cse.ucsc.edu/goldenPath/mm10/bigZips/mm10.2bit
 twoBitToFa mm10.2bit mm10.fa
 ln -s /mnt/data/genome ~/genome
+
+# TODO: still need snp genomes
+# TODO: still need to copy actual python script
