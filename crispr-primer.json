@@ -35,6 +35,11 @@
         "scripts/crispr-primer.sh"
       ],
       "pause_before": "10s"
+    },
+    {
+      "type": "file",
+      "source": "assets/crispr-primer",
+      "destination": "~/"
     }
   ]
 }
