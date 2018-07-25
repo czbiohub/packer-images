@@ -1,0 +1,46 @@
+{
+  "min_packer_version": "1.0.0",
+  "variables": {
+    "aws_region": "us-west-2"
+  },
+  "builders": [{
+    "ami_name": "czbiohub-crispr_primer-{{isotime \"2006-01-02\" | clean_ami_name}}",
+    "ami_description": "For running crispr_primer python 3 script by Yun-fang. crispr_primer wraps primer3. AMI based off of czbiohub-miniconda.",
+    "ami_regions": ["us-east-1"],
+    "tags": {
+      "Name": "czbiohub-miniconda"
+    },
+    "ami_block_device_mappings": [{
+      "delete_on_termination": true,
+      "device_name": "/dev/sde",
+      "volume_size": 1000,
+      "volume_type": "standard"
+    }],
+    "launch_block_device_mappings": [{
+      "delete_on_termination": true,
+      "device_name": "/dev/sde",
+      "volume_size": 1000,
+      "volume_type": "standard"
+    }],
+    "instance_type": "t2.micro",
+    "region": "{{user `aws_region`}}",
+    "type": "amazon-ebs",
+    "source_ami_filter": {
+      "filters": {
+        "virtualization-type": "hvm",
+        "name": "czbiohub-ubuntu16-*",
+        "root-device-type": "ebs"
+      },
+      "owners": [423543210473],
+      "most_recent": true
+    },
+    "ssh_username": "ubuntu"
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "scripts": ["scripts/format_xvde.sh",
+                "scripts/miniconda.sh",
+                "scripts/conda_setup.sh"],
+    "pause_before": "30s"
+  }]
+}
