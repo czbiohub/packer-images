@@ -6,7 +6,7 @@
   "builders": [
     {
       "ami_name": "czbiohub-crispr_primer",
-      "ami_description": "For running crispr_primer python 3 script by Yun-fang. crispr_primer wraps primer3. AMI based off of czbiohub-miniconda.",
+      "ami_description": "For running crispr_primer python script by Yun-fang. crispr_primer wraps primer3. AMI based off of czbiohub-miniconda.",
       "tags": {
         "Name": "czbiohub-crispr_primer"
       },
