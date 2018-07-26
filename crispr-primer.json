@@ -39,7 +39,7 @@
     },
     {
       "type": "file",
-      "source": "assets/crispr-primer",
+      "source": "assets/crispr-primer/",
       "destination": "~/"
     }
   ]

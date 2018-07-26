@@ -16,6 +16,35 @@
 # Detailed spec: https://docs.google.com/document/d/1h_QOtsH6_uH5VeOCr0dBcUBFnQyamgpdQmupYWyvxo8/edit
 ################################################
 
+"""
+
+# TODO (gdingle): fix me
+
+subprocess.CalledProcessError: Command 'primer3/primer3_core -p3_settings_file=primer3_settings.cnf c79ec7047f39104c8372382cb20f84c0.primer3' returned non-zero exit status 255
+
+turn off?
+PRIMER_THERMODYNAMIC_OLIGO_ALIGNMENT
+"thermodynamic approach chosen, but path to thermodynamic parameters not specified"
+https://stackoverflow.com/questions/9866113/why-am-i-getting-this-error-in-my-primer3-eprimer3-mac-osx-build
+
+# TODO (gdingle): use
+conda install -c bioconda blat  ?
+?
+in combination with https://github.com/czbiohub/packer-images ?
+
+
+=osx requirements=
+.fa files
+.2bit files
+blat
+primer3_core
+isPcr
+libpng
+cd /usr/local/lib && ln -s ../Cellar/libpng/1.6.34/lib/libpng.dylib libpng14.14
+
+# TODO (gdingle): use faToTwoBit to generate 2bit files from source fa files
+"""
+
 
 import argparse
 import csv
@@ -64,6 +93,7 @@ SNP_POSTFIX = '-snp142'
 
 # DATA_FILE_DIR = '/data/hca/genome'
 DATA_FILE_DIR = 'genome'
+# TODO (gdingle): uncompress gzipped files before use
 GENOME_FASTA = {'hg38': DATA_FILE_DIR + '/hg38.fa',
                 'mm10': DATA_FILE_DIR + '/mm10.fa',
                 'hg38-snp142': DATA_FILE_DIR + '/hg38.snp142.fa',
