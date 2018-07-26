@@ -298,7 +298,8 @@ def stop_blat_server():
     res = subprocess.check_output(command, shell=True)
     pids = res.replace("\n", " ")
     if len(pids) > 3:
-        command = "kill -9 %s" % pids.split(' ')[0]
+        # TODO (gdingle): this sometimes errors with invalid process id trailing the real one
+        command = "kill -9 %s" % pids
         print command
         res = subprocess.check_output(command, shell=True)
 
