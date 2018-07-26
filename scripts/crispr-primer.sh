@@ -22,4 +22,3 @@ twoBitToFa mm10.2bit mm10.fa
 ln -s /mnt/data/genome ~/genome
 
 # TODO: still need snp genomes
-# TODO: still need to copy actual python script
