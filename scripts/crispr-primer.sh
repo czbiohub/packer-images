@@ -1,6 +1,7 @@
 # TODO: can we use set -xe??
 
 sudo apt-get install unzip
+# TODO: Not sure why this magic is needed
 sudo apt-get -f install --yes && sudo dpkg --configure -a
 
 cd /mnt/data
@@ -21,4 +22,15 @@ wget http://hgdownload.cse.ucsc.edu/goldenPath/mm10/bigZips/mm10.2bit
 twoBitToFa mm10.2bit mm10.fa
 ln -s /mnt/data/genome ~/genome
 
+sudo apt-get install -y liblzo2-dev zlib1g-dev
+pip install fastinterval
+
+# TODO: download mask snp142 from USCS and cat into one big file.
+# snp142mask/chr1.subst.fa.gz to chr22 plus X and Y
+
+# TODO: turn back on PRIMER_THERMODYNAMIC_OLIGO_ALIGNMENT
+# by setting PRIMER_THERMODYNAMIC_PARAMETERS_PATH
+# see https://mcardle.wisc.edu/mprime/help/primer3/primer3_manual.htm#PRIMER_THERMODYNAMIC_OLIGO_ALIGNMENT
+
 # TODO: still need snp genomes
+# ./crispr-primer/crispr_primer.py -f example_input.bed.csv -g hg38 -o example_output.csv
