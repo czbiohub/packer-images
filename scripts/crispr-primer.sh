@@ -12,17 +12,18 @@ ln -s /mnt/data/isPcr ~/isPcr
 mkdir blat && wget http://hgwdev.cse.ucsc.edu/~kent/exe/linux/blatSuite.zip && unzip blatSuite.zip -d blat
 ln -s /mnt/data/blat ~/blat
 
+# Primer3
+sudo apt-get install -y primer3
+
 # python2, twoBitToFa
 export PATH=$HOME/anaconda/bin:$PATH
-conda create -n python2 anaconda python=2 && source activate python2
+conda create -n python2 anaconda python=2
+source activate python2
 conda install -c bioconda ucsc-twobittofa
 
 # fastinterval
 sudo apt-get install -y liblzo2-dev zlib1g-dev
 pip install fastinterval
-
-# Primer3
-sudo apt-get install -y primer3
 
 # genomes
 cd /mnt/data
@@ -34,7 +35,7 @@ twoBitToFa mm10.2bit mm10.fa
 wget http://hgdownload.cse.ucsc.edu/goldenPath/hg38/snp142Mask/chr*.subst.fa.gz
 ln -s /mnt/data/genome ~/genome
 
-# SNP genomes
+# SNP genomes... TOOD: should we update them to latest?
 cd /mnt/data/genome
 mkdir hg38snp142 && hg38snp142
 curl --remote-name-all http://hgdownload.cse.ucsc.edu/goldenPath/hg38/snp142Mask/chr[1-22].subst.fa.gz
@@ -51,5 +52,9 @@ gzip -d *.gz
 # TODO: is order important???
 cat *.subst.fa > ../mm10.snp142.fa
 
+# For login
+echo >> ~/.profile
+echo "source activate python2" >> ~/.profile
 
+# Test with...
 # ./crispr_primer.py -f example_input.bed.csv -g hg38 -o example_output.csv
