@@ -62,5 +62,6 @@ echo >> ~/.profile
 echo "source activate python2" >> ~/.profile
 
 # Test with...
-# aegea launch ami-053782beae0846a04 -t t2.large
+# aegea launch -t t2.large crispr-primer
+# aegea ssh ubuntu@crispr-primer
 # ./crispr_primer.py -f example_input.bed.csv -g hg38 -o example_output.csv
