@@ -10,7 +10,7 @@
       "tags": {
         "Name": "czbiohub-crispr_primer"
       },
-      "instance_type": "m4.xlarge",
+      "instance_type": "t2.micro",
       "region": "{{user `aws_region`}}",
       "type": "amazon-ebs",
       "source_ami_filter": {
@@ -34,7 +34,8 @@
         "scripts/sleep_until_dpkg.sh",
         "scripts/crispr-primer.sh"
       ],
-      "pause_before": "10s"
+      "pause_before": "10s",
+      "expect_disconnect": true
     },
     {
       "type": "file",
