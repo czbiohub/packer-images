@@ -4,6 +4,7 @@ sudo apt-get install unzip
 # TODO: Not sure why this magic is needed
 sudo apt-get -f install --yes && sudo dpkg --configure -a
 
+# TODO: sadly, this isPcr is not working on AWS.... need to recompile or something.
 # isPcr
 cd /mnt/data
 wget http://hgwdev.cse.ucsc.edu/~kent/exe/linux/isPcr.zip && mkdir isPcr && unzip isPcr.zip -d isPcr
