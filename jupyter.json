@@ -9,7 +9,7 @@
     "tags": {
       "Name": "czbiohub-jupyter"
     },
-    "instance_type": "m4.xlarge",
+    "instance_type": "t2.micro",
     "region": "{{user `aws_region`}}",
     "type": "amazon-ebs",
     "source_ami_filter": {
@@ -33,6 +33,5 @@
     "type": "file",
     "source": "assets/jupyter/.jupyter",
     "destination": "/home/ubuntu/"
-  },
-]
+  }]
 }
