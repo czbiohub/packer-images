@@ -85,7 +85,7 @@ c.NotebookApp.allow_root = True
 #c.NotebookApp.browser = ''
 
 ## The full path to an SSL/TLS certificate file.
-c.NotebookApp.certfile = u'/home/ubuntu/certificates/biohub-certificate.pem'
+#c.NotebookApp.certfile = ''
 
 ## The full path to a certificate authority certificate for SSL/TLS client
 #  authentication.
@@ -171,7 +171,7 @@ c.NotebookApp.certfile = u'/home/ubuntu/certificates/biohub-certificate.pem'
 #c.NotebookApp.iopub_msg_rate_limit = 1000
 
 ## The IP address the notebook server will listen on.
-c.NotebookApp.ip = '*'
+#c.NotebookApp.ip = 'localhost'
 
 ## Supply extra arguments that will be passed to Jinja environment.
 #c.NotebookApp.jinja_environment_options = {}
