@@ -7,11 +7,7 @@ conda install --verbose blast
 conda install --verbose star
 conda install --verbose rapsearch
 
-<<<<<<< HEAD
 echo "installing clustalo, trimmomatic, bcftools, samtools, fastqc, adapterremoval, minimap2, seqtk, progressiveMauve, dbg2olc, spades, bowtie2"
-=======
-echo "installing clustalo, bcftools, samtools, fastqc, adapterremoval, minimap2, seqtk, progressiveMauve, dbg2olc, spades, bowtie2"
->>>>>>> 443576ca16b7963496038005bd8204ee9988748b
 conda install --verbose clustalo
 conda install --verbose progressiveMauve
 conda install --verbose dbg2olc
@@ -23,10 +19,7 @@ conda install --verbose bcftools
 conda install --verbose fastqc
 conda install --verbose adapterremoval
 conda install --verbose minimap2
-<<<<<<< HEAD
 conda install --verbose trimmomatic
-=======
->>>>>>> 443576ca16b7963496038005bd8204ee9988748b
 
 yes | conda clean --all
 
@@ -66,7 +59,6 @@ df -h
 
 echo "downloading and installing GSNAP"
 sudo apt-get install -y build-essential
-<<<<<<< HEAD
 GSNAP_PATH=http://research-pub.gene.com/gmap/src/gmap-gsnap-2017-11-15.tar.gz
 wget -P /tmp/ $GSNAP_PATH
 mkdir /tmp/gmap-gsnap && tar -C /tmp/gmap-gsnap -xf /tmp/$(basename $GSNAP_PATH) --strip-components 1
@@ -76,17 +68,6 @@ cd /tmp/gmap-gsnap
 make V=1 -j 16
 make install
 /home/ubuntu/bin/gsnapl --version
-=======
-# GSNAP_PATH=http://research-pub.gene.com/gmap/src/gmap-gsnap-2017-11-15.tar.gz
-# wget -P /tmp/ $GSNAP_PATH
-# mkdir /tmp/gmap-gsnap && tar -C /tmp/gmap-gsnap -xf /tmp/$(basename $GSNAP_PATH) --strip-components 1
-# rm /tmp/$(basename $GSNAP_PATH)
-# cd /tmp/gmap-gsnap
-# ./configure --prefix=/home/ubuntu --with-gmapdb=/home/ubuntu/share
-# make V=1 -j 16
-# make install
-# /home/ubuntu/bin/gsnapl --version
->>>>>>> 443576ca16b7963496038005bd8204ee9988748b
 
 echo "downloading and installing unicycler"
 UNI_PATH=https://github.com/rrwick/Unicycler/archive/v0.4.6.zip
