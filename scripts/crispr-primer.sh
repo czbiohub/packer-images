@@ -22,12 +22,6 @@ conda create -n python2 anaconda python=2
 source activate python2
 conda install -c bioconda ucsc-twobittofa
 
-# TODO: why is packer quiting script around here?
-
-# fastinterval
-sudo apt-get install -y liblzo2-dev zlib1g-dev
-pip install fastinterval
-
 # genomes
 cd /mnt/data
 mkdir genome
@@ -56,6 +50,12 @@ curl --remote-name-all http://hgdownload.cse.ucsc.edu/goldenPath/mm10/snp142Mask
 gzip -d *.gz
 # TODO: is order important???
 cat *.subst.fa > ../mm10.snp142.fa
+
+# TODO: why is packer quiting script around here?
+
+# fastinterval
+sudo apt-get install -y liblzo2-dev zlib1g-dev
+pip install fastinterval
 
 # For login
 echo >> ~/.profile
