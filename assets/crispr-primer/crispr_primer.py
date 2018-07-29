@@ -8,7 +8,7 @@
 # 2. primer3 configuration file
 # 3. other configuration related to the PCR product length
 # Steos:
-# 1. lookup the sequences from input 1.
+# 1. lookup the s/equences from input 1.
 # 2. find primers based on above and input 2.
 # 3. check specificity
 # 4. check the spacer location
@@ -293,7 +293,7 @@ def start_blat_server(genome):
 
 def stop_blat_server():
     # check if server already started. if so, kill
-    command = "ps ax|grep 'gfServer start localhost %d' |grep -v grep|cut -c1-7" % GF_SERVER_PORT
+    command = "ps ax|grep 'gfServer start localhost %d' |grep -v grep|cut -c1-6" % GF_SERVER_PORT
     print command
     res = subprocess.check_output(command, shell=True)
     pids = res.replace("\n", " ")
