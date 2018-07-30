@@ -8,7 +8,7 @@
       "ami_name": "czbiohub-crispr_primer",
       "ami_description": "For running crispr_primer python script by Yun-fang. crispr_primer wraps primer3. AMI based off of czbiohub-miniconda.",
       "tags": {
-        "Name": "czbiohub-crispr_primer-TEST"
+        "Name": "czbiohub-crispr_primer"
       },
       "instance_type": "t2.micro",
       "region": "{{user `aws_region`}}",
@@ -34,7 +34,7 @@
         "scripts/sleep_until_dpkg.sh",
         "scripts/crispr-primer.sh"
       ],
-      "pause_before": "10s"
+      "pause_before": "10s",
     },
     {
       "type": "file",

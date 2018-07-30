@@ -1,3 +1,12 @@
+#
+# IMPORTANT NOTE: This script did not run to completion using `packer build`,
+# so I ran the remaining lines manually. I also had to copy over a non-public
+# version of gfPcr.
+#
+# The resulting image works fully. It is saved as czbiohub-crispr_primer,
+# ami-01f985ad22673f1b1.
+#
+
 # TODO: can we use set -xe??
 
 sudo apt-get install unzip
@@ -6,6 +15,7 @@ sudo apt-get -f install --yes && sudo dpkg --configure -a
 
 # TODO: sadly, this isPcr is not working on AWS.... need to recompile or something.
 # isPcr
+# TODO: copy gfPcr bin from assets
 cd /mnt/data
 wget http://hgwdev.cse.ucsc.edu/~kent/exe/linux/isPcr.zip && mkdir isPcr && unzip isPcr.zip -d isPcr
 ln -s /mnt/data/isPcr ~/isPcr
