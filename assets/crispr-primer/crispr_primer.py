@@ -8,7 +8,7 @@
 # 2. primer3 configuration file
 # 3. other configuration related to the PCR product length
 # Steos:
-# 1. lookup the s/equences from input 1.
+# 1. lookup the sequences from input 1.
 # 2. find primers based on above and input 2.
 # 3. check specificity
 # 4. check the spacer location
