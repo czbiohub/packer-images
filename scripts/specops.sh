@@ -2,12 +2,20 @@
 
 export PATH=$HOME/anaconda/bin:$PATH
 
+echo "writing launch script for bowtie2 indexes"
+BOOTPATH=/var/lib/cloud/scripts/per-instance
+echo '#!/bin/bash' > /tmp/dl_bt_index
+echo 'mkdir /mnt/data/bowtie_indexes' >> /tmp/dl_bt_index
+echo 'aws s3 cp --recursive s3://emily-data/bowtie2 /mnt/data/bowtie_indexes' >> /tmp/dl_bt_index
+sudo mv /tmp/dl_bt_index $BOOTPATH
+chmod 755 $BOOTPATH/dl_bt_index
+
 echo "install blast, star, rapsearch"
 conda install --verbose blast
 conda install --verbose star
 conda install --verbose rapsearch
 
-echo "installing clustalo, trimmomatic, bcftools, samtools, fastqc, adapterremoval, minimap2, seqtk, progressiveMauve, dbg2olc, spades, bowtie2"
+echo "installing clustalo, pilon, trimmomatic, bcftools, samtools, fastqc, adapterremoval, minimap2, seqtk, progressiveMauve, dbg2olc, spades, bowtie2"
 conda install --verbose clustalo
 conda install --verbose progressiveMauve
 conda install --verbose dbg2olc
@@ -20,6 +28,7 @@ conda install --verbose fastqc
 conda install --verbose adapterremoval
 conda install --verbose minimap2
 conda install --verbose trimmomatic
+conda install --verbose pilon
 
 yes | conda clean --all
 
@@ -96,4 +105,5 @@ cd guide_design_tools
 yes|make install
 cp /tmp/guide_design_tools/vendor/special_ops_crispr_tools/crispr_sites/crispr_sites $HOME/bin
 cp /tmp/guide_design_tools/vendor/special_ops_crispr_tools/offtarget/offtarget $HOME/bin
+
 
