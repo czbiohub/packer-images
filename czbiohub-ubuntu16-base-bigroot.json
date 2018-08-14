@@ -4,25 +4,27 @@
     "aws_region": "us-west-2"
   },
   "builders": [{
-    "ami_name": "czbiohub-specops-{{isotime \"2006-01-02\" | clean_ami_name}}",
-    "ami_description": "Ubuntu 16.04 w/ Anaconda and Special Ops tools",
+    "ami_name": "czbiohub-ubuntu16-{{isotime \"2006-01-02\" | clean_ami_name}}-bigroot",
+    "ami_description": "CZ Biohub base image for Ubuntu",
     "tags": {
-      "Name": "czbiohub-specops"
+      "Name": "czbiohub-ubuntu16-bigroot"
     },
-    "instance_type": "m4.xlarge",
+    "instance_type": "t2.micro",
     "region": "{{user `aws_region`}}",
     "type": "amazon-ebs",
     "source_ami_filter": {
       "filters": {
         "virtualization-type": "hvm",
-        "name": "czbiohub-nanopore-*",
+        "architecture": "x86_64",
+        "name": "*ubuntu-xenial-16.04-amd64-server-*",
+        "block-device-mapping.volume-type": "gp2",
         "root-device-type": "ebs"
       },
-      "owners": [423543210473],
+      "owners": ["099720109477"],
       "most_recent": true
     },
     "ssh_username": "ubuntu",
-    "ami_block_device_mappings": [ {
+  "ami_block_device_mappings": [ {
             "device_name": "/dev/sda1",
             "volume_size": 16,
             "delete_on_termination": true
@@ -32,12 +34,10 @@
             "volume_size": 16,
             "delete_on_termination": true
         } ]
-
   }],
   "provisioners": [{
     "type": "shell",
-    "scripts": ["scripts/sleep_until_dpkg.sh",
-                "scripts/specops.sh"],
-    "pause_before": "30s"
+    "script": "scripts/sleep_until_dpkg.sh",
+    "pause_before": "60s"
   }]
 }

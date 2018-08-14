@@ -96,6 +96,46 @@ Again, this won't return as long as the connection is running. You will be able 
 
 The password for the notebook is the same as the InnerHub Wifi.
 
+## How to look at which images you have running
+
+At the command line, run `aegea ls -t "Name=YOURUSERNAME"`, assuming that you create all your images with your username prefixed. For example, if I launched an image with:
+
+```
+aegea launch --iam-role S3fromEC2 --ami-tags Name=czbiohub-jupyter -t x1e.xlarge --duration-hours=8  olgabot-sourmash-juypter-v2
+```
+
+Then I would look for all images whose name starts with `olgabot`, using the filter `-t "Name=olgabot*"`:
+
+```
+$ aegea ls -t "Name=olgabot*"
+```
+
+This will output a table with your images:
+
+```
+┌───────────────────────────────────┬───────────────────┬──────────┬─────────────┬──────────────┬────────────────────────────────┬─────────────────────┬────────────────────────────────┬────────────────────┬────────────────────────────────┬────────────────────────────────┐
+│name                               │id                 │state     │instance_type│launch_time   │public_dns_name                 │image_id             │tags                            │iam_instance_profile│security_groups                 │state_reason                    │
+├───────────────────────────────────┼───────────────────┼──────────┼─────────────┼──────────────┼────────────────────────────────┼─────────────────────┼────────────────────────────────┼────────────────────┼────────────────────────────────┼────────────────────────────────┤
+│olgabot-anaconda                   │i-0769b984684e5d027│stopped   │t2.micro     │6 months ago  │                                │ami-e358e09b         │Name=olgabot-anaconda, Owner=ol…│olgabot-s3readonly  │aegea.launch                    │{"Code": "Client.UserInitiatedS…│
+│olgabot-fastqc                     │i-08bac2c4bf7309ba4│stopped   │m1.small     │6 months ago  │                                │ami-e8931090         │Owner=olgabot, OwnerSSHKeyName=…│olgabot-s3readonly  │aegea.launch                    │{"Code": "Client.UserInitiatedS…│
+│olgabot-immcantation               │i-0b2037efa5bd788cb│stopped   │m4.4xlarge   │6 months ago  │                                │ami-f2d3638a         │SSHHostPublicKeyPart2=5EpabtCNQ…│olgabot-s3readonly  │aegea.launch                    │{"Code": "Client.UserInitiatedS…│
+│olgabot-seq2loc-transcript-assembly│i-0e9519d7358164d42│stopped   │m4.4xlarge   │4 months ago  │                                │ami-07ae551b4caeab951│SSHHostPublicKeyPart2=q6Twn7l5m…│S3fromEC2           │aegea.launch                    │{"Code": "Client.UserInitiatedS…│
+│olgabot-igrec-tabula-muris         │i-06232d6c485d75240│stopped   │m4.4xlarge   │3 months ago  │                                │ami-23de585b         │OwnerSSHKeyName=aegea.launch.ol…│S3fromEC2           │aegea.launch                    │{"Code": "Client.UserInitiatedS…│
+│olgabot-seq2loc-trinity            │i-01bf17bebccb358f4│stopped   │m4.4xlarge   │3 months ago  │                                │ami-23de585b         │OwnerSSHKeyName=aegea.launch.ol…│S3fromEC2           │R/RStudio Server and JupyterHub…│{"Code": "Client.UserInitiatedS…│
+│olgabot-kmer-test                  │i-0cdaf8d09e3bd295a│stopped   │t2.micro     │3 months ago  │                                │ami-0fa1d59d2ce52fda9│Name=olgabot-kmer-test, SSHHost…│S3fromEC2           │aegea.launch                    │{"Code": "Client.UserInitiatedS…│
+│olgabot-maca10x                    │i-070fb2d57fd9440d8│stopped   │m4.large     │2 months ago  │                                │ami-23de585b         │OwnerSSHKeyName=aegea.launch.ol…│S3fromEC2           │aegea.launch                    │{"Code": "Client.UserInitiatedS…│
+│olgabot-mca                        │i-03688a6852d43b69c│stopped   │m4.large     │2 months ago  │                                │ami-23de585b         │Name=olgabot-mca, Owner=olgabot…│S3fromEC2           │R/RStudio Server and JupyterHub…│{"Code": "Client.UserInitiatedS…│
+│olgabot-jupyter-test               │i-0612038d2b20f00e1│stopped   │t2.micro     │2 months ago  │                                │ami-0c3cba3e57b0ff9db│SSHHostPublicKeyPart2=TcAsW66tP…│S3fromEC2           │aegea.launch                    │{"Code": "Client.UserInitiatedS…│
+│olgabot-jupyter-test-v2            │i-0df694d02f830ac31│stopped   │t2.micro     │2 months ago  │                                │ami-0c87a068d01e92945│SSHHostPublicKeyPart2=6iBJKHUcK…│S3fromEC2           │aegea.launch                    │{"Code": "Client.UserInitiatedS…│
+│olgabot-vo                         │i-0d707bef4094b02f5│stopped   │m4.large     │2 months ago  │                                │ami-07524b1e061397104│Owner=olgabot, OwnerSSHKeyName=…│aegea.launch        │R/RStudio Server and JupyterHub…│{"Code": "Client.UserInitiatedS…│
+│olgabot-reflow-t2.micro            │i-0953c7f907cbcdee4│stopped   │t2.micro     │1 month ago   │                                │ami-0ca9b875d308c994c│Owner=olgabot, SSHHostPublicKey…│S3fromEC2           │aegea.launch                    │{"Code": "Client.UserInitiatedS…│
+│olgabot-samplesheets               │i-0243460a649f9ff5c│stopped   │t2.large     │1 month ago   │                                │ami-23de585b         │SSHHostPublicKeyPart2=nvvfHQgkh…│S3fromEC2           │aegea.launch                    │{"Code": "Client.UserInitiatedS…│
+│olgabot-sourmash                   │i-0cd2a8555e36ba26d│stopped   │t2.large     │1 month ago   │                                │ami-23de585b         │Name=olgabot-sourmash, OwnerSSH…│S3fromEC2           │aegea.launch                    │{"Code": "Client.UserInitiatedS…│
+│olgabot-sourmash-juypter           │i-0183b546ce4569e8b│terminated│t2.2xlarge   │2 weeks ago   │                                │ami-0ad74e6f318530872│Name=olgabot-sourmash-juypter, …│None                │                                │{"Code": "Client.UserInitiatedS…│
+│olgabot-sourmash-juypter-v2        │i-0a1fb016f4480204e│running   │x1e.xlarge   │11 minutes ago│ec2-54-187-219-131.us-west-2.co…│ami-0ad74e6f318530872│Owner=olgabot, SSHHostPublicKey…│S3fromEC2           │aegea.launch                    │None                            │
+└───────────────────────────────────┴───────────────────┴──────────┴─────────────┴──────────────┴────────────────────────────────┴─────────────────────┴────────────────────────────────┴────────────────────┴────────────────────────────────┴────────────────────────────────┘
+```
+
 # Workflow for making a new image
 
 If you're having trouble with any of these steps, ask in #eng-support
