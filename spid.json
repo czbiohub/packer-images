@@ -1,0 +1,33 @@
+{
+  "min_packer_version": "1.0.0",
+  "variables": {
+    "aws_region": "us-west-2"
+  },
+  "builders": [{
+    "ami_name": "czbiohub-spid-{{isotime \"2006-01-02\" | clean_ami_name}}",
+    "ami_description": "SNP Pipeline for Infectious Disease",
+    "tags": {
+      "Name": "czbiohub-spid"
+    },
+    "instance_type": "m4.xlarge",
+    "region": "{{user `aws_region`}}",
+    "type": "amazon-ebs",
+    "source_ami_filter": {
+      "filters": {
+        "virtualization-type": "hvm",
+        "name": "czbiohub-miniconda-*",
+        "root-device-type": "ebs"
+      },
+      "owners": [423543210473],
+      "most_recent": true
+    },
+    "ssh_username": "ubuntu"
+  }],
+  "provisioners": [{
+      "type": "shell",
+      "scripts": ["scripts/sleep_until_dpkg.sh",
+		  "scripts/spid.sh"],
+      "pause_before": "30s",
+      "inline_shebang": "/bin/bash -ex"
+  }]
+}
