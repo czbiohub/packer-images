@@ -99,7 +99,13 @@ echo 'repository: s3,czbiohub-reflow-quickstart-cache' >> ~/.reflow/config.yaml
 
 # Clone the github repositories
 git clone https://github.com/czbiohub/aguamenti
+# Install aguamenti
+pushd aguamenti
+make conda_install
+popd
+
 git clone https://github.com/czbiohub/reflow-workflows
+git clone https://github.com/czbiohub/reflow-batches
 
 source ~/.bashrc
 
