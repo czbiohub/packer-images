@@ -105,7 +105,6 @@ make conda_install
 popd
 
 git clone https://github.com/czbiohub/reflow-workflows
-git clone https://github.com/czbiohub/reflow-batches
 
 source ~/.bashrc
 
