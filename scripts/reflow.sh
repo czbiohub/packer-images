@@ -29,13 +29,17 @@ echo "export GOPATH=$HOME/gocode" >> ~/.bashrc
 export PATH=$PATH:$GOPATH/bin
 echo "export PATH=$PATH:$GOPATH/bin" >> ~/.bashrc
 
+# Somehow anaconda gets lost????
+export PATH=$PATH:$HOME/anaconda/bin
+echo "export PATH=$PATH:$HOME/anaconda/bin">> ~/.bashrc
+
 # Tell Reflow to load AWS credentials the way Aegea stores them
 export AWS_SDK_LOAD_CONFIG=1
 echo "AWS_SDK_LOAD_CONFIG=1" >> ~/.bashrc
 
 # Get release version of reflow
 wget https://github.com/grailbio/reflow/releases/download/reflow0.6.8/reflow0.6.8.linux.amd64
-sudo cp reflow0.6.3.linux.amd64 /usr/local/bin/reflow
+sudo cp reflow0.6.8.linux.amd64 /usr/local/bin/reflow
 sudo chmod ugo+x /usr/local/bin/reflow
 
 # echo "Installing AWS dependencies"
@@ -86,9 +90,16 @@ sudo apt-get install --yes docker-ce
 sudo docker run hello-world
 
 # Send reflow setup commands to bashrc so they get set up for every user's AWS credentials
-echo "AWS_SDK_LOAD_CONFIG=1 reflow setup-ec2" >> ~/.bashrc
-echo "AWS_SDK_LOAD_CONFIG=1 reflow setup-dynamodb-assoc czbiohub-reflow-quickstart" >> ~/.bashrc
-echo "echo 'repository: s3,czbiohub-reflow-quickstart-cache' >> ~/.reflow/config.yaml" >> ~/.bashrc
+echo "export AWS_SDK_LOAD_CONFIG=1" >> ~/.bashrc
+echo "reflow setup-ec2" >> ~/.bashrc
+echo "reflow setup-dynamodb-assoc czbiohub-reflow-quickstart" >> ~/.bashrc
+
+# Add the repository to the config
+echo 'repository: s3,czbiohub-reflow-quickstart-cache' >> ~/.reflow/config.yaml
+
+# Clone the github repositories
+git clone https://github.com/czbiohub/aguamenti
+git clone https://github.com/czbiohub/reflow-workflows
 
 source ~/.bashrc
 
