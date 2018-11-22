@@ -14,6 +14,12 @@ sudo add-apt-repository ppa:gophers/archive
 sudo apt-get update
 sudo apt-get install --allow-unauthenticated --yes golang-1.10-go
 
+# Install zsh and other niceness
+sudo apt install --yes zsh emacs tree git-core unzip htop tmux
+wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+sudo chsh -s `which zsh`
+sudo usermod -s /bin/zsh ubuntu
+
 # Add go to path
 export PATH=/usr/lib/go-1.10/bin:$PATH
 echo "export PATH=/usr/lib/go-1.10/bin:$PATH" >> ~/.bashrc
@@ -35,7 +41,7 @@ echo "export PATH=$PATH:$HOME/anaconda/bin">> ~/.bashrc
 
 # Tell Reflow to load AWS credentials the way Aegea stores them
 export AWS_SDK_LOAD_CONFIG=1
-echo "AWS_SDK_LOAD_CONFIG=1" >> ~/.bashrc
+echo "export AWS_SDK_LOAD_CONFIG=1" >> ~/.bashrc
 
 # Get release version of reflow
 wget https://github.com/grailbio/reflow/releases/download/reflow0.6.8/reflow0.6.8.linux.amd64
@@ -90,7 +96,6 @@ sudo apt-get install --yes docker-ce
 sudo docker run hello-world
 
 # Send reflow setup commands to bashrc so they get set up for every user's AWS credentials
-echo "export AWS_SDK_LOAD_CONFIG=1" >> ~/.bashrc
 echo "reflow setup-ec2" >> ~/.bashrc
 echo "reflow setup-dynamodb-assoc czbiohub-reflow-quickstart" >> ~/.bashrc
 
