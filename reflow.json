@@ -50,6 +50,16 @@
       "destination": "/tmp/system.conf"
     },
     {
+      "type": "file",
+      "source": "assets/reflow/reflow.bash_profile.sh",
+      "destination": "/tmp/reflow.bash_profile.sh"
+    },
+    {
+      "type": "file",
+      "source": "assets/reflow.bashrc.sh",
+      "destination": "/tmp/reflow.bashrc.sh"
+    },
+    {
       "type": "shell",
       "script": "scripts/reflow.sh",
       "pause_before": "60s"

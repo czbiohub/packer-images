@@ -7,58 +7,10 @@ sudo rm /var/lib/dpkg/lock
 sudo dpkg --configure -a
 # while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 1 done
 
-
-# Install latest version of go
-echo "Install latest version of go"
-sudo add-apt-repository ppa:gophers/archive
-sudo apt-get update
-sudo apt-get install --allow-unauthenticated --yes golang-1.10-go
-
-# Install zsh and other niceness
-sudo apt install --yes zsh emacs tree git-core unzip htop tmux
-wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
-sudo chsh -s `which zsh`
-sudo usermod -s /bin/zsh ubuntu
-
-# Add go to path
-export PATH=/usr/lib/go-1.10/bin:$PATH
-echo "export PATH=/usr/lib/go-1.10/bin:$PATH" >> ~/.bashrc
-
-# Create a home for go packages
-mkdir $HOME/gocode
-
-# Set home for go packages
-export GOPATH=$HOME/gocode
-echo "export GOPATH=$HOME/gocode" >> ~/.bashrc
-
-# Make sure go binaries are in path
-export PATH=$PATH:$GOPATH/bin
-echo "export PATH=$PATH:$GOPATH/bin" >> ~/.bashrc
-
-# Somehow anaconda gets lost????
-export PATH=$PATH:$HOME/anaconda/bin
-echo "export PATH=$PATH:$HOME/anaconda/bin">> ~/.bashrc
-
-# Tell Reflow to load AWS credentials the way Aegea stores them
-export AWS_SDK_LOAD_CONFIG=1
-echo "export AWS_SDK_LOAD_CONFIG=1" >> ~/.bashrc
-
 # Get release version of reflow
 wget https://github.com/grailbio/reflow/releases/download/reflow0.6.8/reflow0.6.8.linux.amd64
 sudo cp reflow0.6.8.linux.amd64 /usr/local/bin/reflow
 sudo chmod ugo+x /usr/local/bin/reflow
-
-# echo "Installing AWS dependencies"
-# go get github.com/aws/aws-sdk-go
-# go get github.com/cihub/seelog
-# go get github.com/pkg/errors
-#
-# echo "Get and install reflow package"
-# # Add reflow package
-# go get github.com/grailbio/reflow
-#
-# # Install reflow binary
-# go install github.com/grailbio/reflow/cmd/reflow
 
 # test reflow command
 reflow -help
@@ -95,12 +47,23 @@ sudo apt-get update
 sudo apt-get install --yes docker-ce
 sudo docker run hello-world
 
-# Send reflow setup commands to bashrc so they get set up for every user's AWS credentials
-echo "reflow setup-ec2" >> ~/.bashrc
-echo "reflow setup-dynamodb-assoc czbiohub-reflow-quickstart" >> ~/.bashrc
+
+# Copy Reflow Configurations to the home directory
+sudo cp /tmp/*reflow.sh $HOME
+
+# Make a variable for the profile that can be run by all users, even at build time
+PROFILE=/tmp/reflow.bash_profile.sh
+
+# Get some AWS configurations
+source $PROFILE
+
+# Add sourcing of these new files to bashrc
+echo "source reflow.bash_profile.sh >> ~/.bashrc"
+echo "source reflow.bashrc.sh >> ~/.bashrc"
 
 # Add the repository to the config
 echo 'repository: s3,czbiohub-reflow-quickstart-cache' >> ~/.reflow/config.yaml
+
 
 # Clone the github repositories
 git clone https://github.com/czbiohub/aguamenti
@@ -111,6 +74,20 @@ popd
 
 git clone https://github.com/czbiohub/reflow-workflows
 
-source ~/.bashrc
+# Install zsh and other niceness
+sudo apt-get update
+sudo apt install --yes zsh emacs tree git-core unzip htop tmux
+wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+sudo chsh -s `which zsh`
+sudo usermod -s /bin/zsh ubuntu
+
+
+# Add sourcing of bashrc to zshrc
+RCFILE=$HOME/.zshrc
+echo "source ~/.bashrc >> $RCFILE"
+
+# # Somehow anaconda gets lost????
+# export PATH=$PATH:$HOME/anaconda/bin
+# echo "export PATH=$PATH:$HOME/anaconda/bin">> $RCFILE
 
 exit 0
