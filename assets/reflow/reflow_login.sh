@@ -3,4 +3,4 @@
 # Shouldn't be run at build time
 
 echo "user: local,$HOST@localhost" >> ~/.reflow/config.yml
-pushd ~ && git clone https://github.com/czbiohub/reflow-batches && popd
+pushd ~ && git clone https://github.com/czbiohub/reflow-batches ; popd
