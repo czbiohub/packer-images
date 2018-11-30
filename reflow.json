@@ -51,13 +51,13 @@
     },
     {
       "type": "file",
-      "source": "assets/reflow/reflow.bash_profile.sh",
-      "destination": "/tmp/reflow.bash_profile.sh"
+      "source": "assets/reflow/reflow_profile.sh",
+      "destination": "/tmp/reflow_profile.sh"
     },
     {
       "type": "file",
-      "source": "assets/reflow/reflow.bashrc.sh",
-      "destination": "/tmp/reflow.bashrc.sh"
+      "source": "assets/reflow/reflow_login.sh",
+      "destination": "/tmp/reflow_login.sh"
     },
     {
       "type": "shell",

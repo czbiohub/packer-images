@@ -7,6 +7,7 @@ sudo rm /var/lib/dpkg/lock
 sudo dpkg --configure -a
 # while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 1 done
 
+# --- Install and Configure Reflow --- #
 # Get release version of reflow
 wget https://github.com/grailbio/reflow/releases/download/reflow0.6.8/reflow0.6.8.linux.amd64
 sudo cp reflow0.6.8.linux.amd64 /usr/local/bin/reflow
@@ -14,6 +15,16 @@ sudo chmod ugo+x /usr/local/bin/reflow
 
 # test reflow command
 reflow -help
+
+# Copy Reflow Configurations to the home directory
+sudo cp /tmp/reflow*.sh $HOME
+
+# Make a variable for the profile that can be run by all users, even at build time
+PROFILE=/tmp/reflow_profile.sh
+
+# Get some AWS configurations
+source $PROFILE
+# --- END install and configure Reflow --- #
 
 # These files are necessary to increase the number of open file limits
 # so reflow can run on 1000s of files at once
@@ -47,24 +58,6 @@ sudo apt-get update
 sudo apt-get install --yes docker-ce
 sudo docker run hello-world
 
-
-# Copy Reflow Configurations to the home directory
-sudo cp /tmp/*reflow.sh $HOME
-
-# Make a variable for the profile that can be run by all users, even at build time
-PROFILE=/tmp/reflow.bash_profile.sh
-
-# Get some AWS configurations
-source $PROFILE
-
-# Add sourcing of these new files to bashrc
-echo "source reflow.bash_profile.sh >> ~/.bashrc"
-echo "source reflow.bashrc.sh >> ~/.bashrc"
-
-# Add the repository to the config
-echo 'repository: s3,czbiohub-reflow-quickstart-cache' >> ~/.reflow/config.yaml
-
-
 # Clone the github repositories
 git clone https://github.com/czbiohub/aguamenti
 # Install aguamenti
@@ -73,6 +66,7 @@ make conda_install
 popd
 
 git clone https://github.com/czbiohub/reflow-workflows
+
 
 # Install zsh and other niceness
 sudo apt-get update
@@ -84,10 +78,21 @@ sudo usermod -s /bin/zsh ubuntu
 
 # Add sourcing of bashrc to zshrc
 RCFILE=$HOME/.zshrc
-echo "source ~/.bashrc >> $RCFILE"
+# Add sourcing of these new files to bashrc/zshrc
+sudo cat $HOME/reflow_profile.sh >> /etc/zsh/zprofile
+sudo cat $HOME/reflow_profile.sh >> /etc/profile
+
+sudo cat $HOME/reflow_login.sh >> /etc/zsh/zlogin
+sudo cp $HOME/reflow_login.sh >> /etc/profile.d/
+
+# Add the repository to the config
+echo 'repository: s3,czbiohub-reflow-quickstart-cache' >> ~/.reflow/config.yaml
 
 # # Somehow anaconda gets lost????
-# export PATH=$PATH:$HOME/anaconda/bin
-# echo "export PATH=$PATH:$HOME/anaconda/bin">> $RCFILE
+export PATH=$PATH:$HOME/anaconda/bin
+echo "export PATH=$PATH:$HOME/anaconda/bin">> $RCFILE
+
+## Non-interactively generate ssh key
+ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
 
 exit 0
