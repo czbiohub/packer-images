@@ -56,7 +56,7 @@
     },
     {
       "type": "file",
-      "source": "assets/reflow.bashrc.sh",
+      "source": "assets/reflow/reflow.bashrc.sh",
       "destination": "/tmp/reflow.bashrc.sh"
     },
     {
