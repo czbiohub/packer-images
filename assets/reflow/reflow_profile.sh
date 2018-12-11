@@ -12,4 +12,4 @@ export AWS_SDK_LOAD_CONFIG=1
 # --- Now we're ready to set up Reflow --- $
 # Send reflow setup commands to bashrc so they get set up for every user's AWS credentials
 reflow setup-ec2
-reflow setup-dynamodb-assoc czbiohub-reflow-quickstart
+# reflow setup-dynamodb-assoc czbiohub-reflow-quickstart
