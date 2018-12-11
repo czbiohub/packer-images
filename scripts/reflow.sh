@@ -55,9 +55,10 @@ sudo docker run hello-world
 # Clone the github repositories
 git clone https://github.com/czbiohub/aguamenti
 # Install aguamenti
-pushd aguamenti
-make conda_install
-popd
+cd aguamenti
+pip install -r requirements.txt
+pip install -e .
+cd
 
 git clone https://github.com/czbiohub/reflow-workflows
 
@@ -75,17 +76,18 @@ unzip exa-linux-x86_64-0.8.0.zip
 sudo mv exa-linux-x86_64 /usr/local/bin/exa
 sudo chmod ugo+x /usr/local/bin/exa
 
-
+# Add sourcing of bashrc to zshrc
+RCFILE=$HOME/.zshrc
 
 # # Somehow anaconda gets lost????
 export PATH=$PATH:$HOME/anaconda/bin
 echo "export PATH=$PATH:$HOME/anaconda/bin">> $RCFILE
 
 
-# Add sourcing of bashrc to zshrc
-RCFILE=$HOME/.zshrc
+
 # Add sourcing of these new files to bashrc/zshrc
 sudo cat $HOME/reflow_profile.sh >> $RCFILE
+source $HOME/reflow_profile.sh
 # sudo cat $HOME/reflow_profile.sh >> ~/.profile
 
 sudo cat $HOME/reflow_login.sh >> $RCFILE
