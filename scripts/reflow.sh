@@ -84,6 +84,9 @@ export PATH=$PATH:$HOME/anaconda/bin
 echo "export PATH=$PATH:$HOME/anaconda/bin">> $RCFILE
 
 
+## Non-interactively generate ssh key
+ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
+
 
 # Add sourcing of these new files to bashrc/zshrc
 sudo cat $HOME/reflow_profile.sh >> $RCFILE
@@ -99,8 +102,6 @@ echo 'alias ll="ls -lha"' >> $RCFILE
 # Add the repository to the config
 echo 'repository: s3,czbiohub-reflow-quickstart-cache' >> ~/.reflow/config.yaml
 
-## Non-interactively generate ssh key
-ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
 
 
 ## Make tmux Session
