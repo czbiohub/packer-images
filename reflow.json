@@ -4,7 +4,7 @@
     "aws_region": "us-west-2"
   },
   "builders": [{
-    "ami_name": "czbiohub-reflow-{{isotime \"2006-01-02 15:04:05\" | clean_ami_name}}",
+    "ami_name": "czbiohub-reflow-{{isotime \"2006-01-02_15:04:05_UTC\" | clean_ami_name}}",
     "ami_description": "An Ubuntu 16.04 AMI with Reflow and miniconda",
     "tags": {
       "Name": "czbiohub-reflow"
