@@ -18,12 +18,6 @@ reflow -help
 
 # Copy Reflow Configurations to the home directory
 sudo cp /tmp/reflow*.sh $HOME
-
-# Make a variable for the profile that can be run by all users, even at build time
-PROFILE=/tmp/reflow_profile.sh
-
-# Get some AWS configurations
-source $PROFILE
 # --- END install and configure Reflow --- #
 
 # These files are necessary to increase the number of open file limits
@@ -75,24 +69,43 @@ wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - 
 sudo chsh -s `which zsh`
 sudo usermod -s /bin/zsh ubuntu
 
+# Install exa
+wget https://github.com/ogham/exa/releases/download/v0.8.0/exa-linux-x86_64-0.8.0.zip
+unzip exa-linux-x86_64-0.8.0.zip
+sudo mv exa-linux-x86_64 /usr/local/bin/exa
+sudo chmod ugo+x /usr/local/bin/exa
 
-# Add sourcing of bashrc to zshrc
-RCFILE=$HOME/.zshrc
-# Add sourcing of these new files to bashrc/zshrc
-sudo cat $HOME/reflow_profile.sh >> /etc/zsh/zprofile
-sudo cat $HOME/reflow_profile.sh >> /etc/profile
 
-sudo cat $HOME/reflow_login.sh >> /etc/zsh/zlogin
-sudo cp $HOME/reflow_login.sh >> /etc/profile.d/
-
-# Add the repository to the config
-echo 'repository: s3,czbiohub-reflow-quickstart-cache' >> ~/.reflow/config.yaml
 
 # # Somehow anaconda gets lost????
 export PATH=$PATH:$HOME/anaconda/bin
 echo "export PATH=$PATH:$HOME/anaconda/bin">> $RCFILE
 
+
+# Add sourcing of bashrc to zshrc
+RCFILE=$HOME/.zshrc
+# Add sourcing of these new files to bashrc/zshrc
+sudo cat $HOME/reflow_profile.sh >> $RCFILE
+# sudo cat $HOME/reflow_profile.sh >> ~/.profile
+
+sudo cat $HOME/reflow_login.sh >> $RCFILE
+# sudo cat $HOME/reflow_login.sh >> ~/.login
+
+echo 'alias ls="exa --git"' >> $RCFILE
+echo 'alias ll="ls -lha"' >> $RCFILE
+
+# Add the repository to the config
+echo 'repository: s3,czbiohub-reflow-quickstart-cache' >> ~/.reflow/config.yaml
+
 ## Non-interactively generate ssh key
 ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
+
+
+## Make tmux Session
+tmux -2 new-session -d -s reflow
+tmux split-window -h
+tmux select-pane -t 0
+tmux send-keys "htop" C-m
+
 
 exit 0
