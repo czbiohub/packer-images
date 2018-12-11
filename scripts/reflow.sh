@@ -52,15 +52,6 @@ sudo apt-get update
 sudo apt-get install --yes docker-ce
 sudo docker run hello-world
 
-# Clone the github repositories
-git clone https://github.com/czbiohub/aguamenti
-# Install aguamenti
-cd aguamenti
-pip install -r requirements.txt
-pip install -e .
-cd
-
-git clone https://github.com/czbiohub/reflow-workflows
 
 
 # Install zsh and other niceness
@@ -82,6 +73,16 @@ RCFILE=$HOME/.zshrc
 # # Somehow anaconda gets lost????
 export PATH=$PATH:$HOME/anaconda/bin
 echo "export PATH=$PATH:$HOME/anaconda/bin">> $RCFILE
+
+# Clone the github repositories
+git clone https://github.com/czbiohub/aguamenti
+# Install aguamenti
+cd aguamenti
+pip install -r requirements.txt
+pip install -e .
+cd
+
+git clone https://github.com/czbiohub/reflow-workflows
 
 
 ## Non-interactively generate ssh key
