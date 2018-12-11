@@ -90,18 +90,17 @@ ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
 
 
 # Add sourcing of these new files to bashrc/zshrc
-sudo cat $HOME/reflow_profile.sh >> $RCFILE
-source $HOME/reflow_profile.sh
+sudo cat $HOME/reflow_profile.sh >> ~/.zprofile
+# source $HOME/reflow_profile.sh
 # sudo cat $HOME/reflow_profile.sh >> ~/.profile
 
-sudo cat $HOME/reflow_login.sh >> $RCFILE
+sudo cat $HOME/reflow_login.sh >> ~/.zlogin
 # sudo cat $HOME/reflow_login.sh >> ~/.login
 
 echo 'alias ls="exa --git"' >> $RCFILE
 echo 'alias ll="ls -lha"' >> $RCFILE
 
 # Add the repository to the config
-echo 'repository: s3,czbiohub-reflow-quickstart-cache' >> ~/.reflow/config.yaml
 
 
 
