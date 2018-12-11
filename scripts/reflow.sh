@@ -100,15 +100,11 @@ sudo cat $HOME/reflow_login.sh >> ~/.zlogin
 echo 'alias ls="exa --git"' >> $RCFILE
 echo 'alias ll="ls -lha"' >> $RCFILE
 
-# Add the repository to the config
 
+# Copy tmux Configurations
+cp /tmp/.tmux.conf $HOME
 
-
-## Make tmux Session
-tmux -2 new-session -d -s reflow
-tmux split-window -h
-tmux select-pane -t 0
-tmux send-keys "htop" C-m
-
+ls -lha ~/.ssh
+cat ~/.ssh/authorized_keys
 
 exit 0
