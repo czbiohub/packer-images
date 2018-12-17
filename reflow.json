@@ -56,13 +56,23 @@
     },
     {
       "type": "file",
-      "source": "assets/reflow/reflow_login.sh",
-      "destination": "/tmp/reflow_login.sh"
+      "source": "assets/reflow/reflow_startup.sh",
+      "destination": "/tmp/reflow_startup.sh"
     },
     {
       "type": "file",
       "source": "assets/reflow/.tmux.conf",
-      "destination": "/tmp/.tmux.conf"
+      "destination": "/home/ubuntu/.tmux.conf"
+    },
+    {
+      "type": "file",
+      "source": "assets/reflow/.zshrc",
+      "destination": "/home/ubuntu/.zshrc"
+    },
+    {
+      "type": "file",
+      "source": "assets/reflow/cron/sync-reflow.sh",
+      "destination": "/tmp/sync-reflow.sh"
     },
     {
       "type": "shell",

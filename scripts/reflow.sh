@@ -67,22 +67,17 @@ unzip exa-linux-x86_64-0.8.0.zip
 sudo mv exa-linux-x86_64 /usr/local/bin/exa
 sudo chmod ugo+x /usr/local/bin/exa
 
-# Add sourcing of bashrc to zshrc
-RCFILE=$HOME/.zshrc
-
-# # Somehow anaconda gets lost????
-export PATH=$PATH:$HOME/anaconda/bin
-echo "export PATH=$PATH:$HOME/anaconda/bin">> $RCFILE
-
 # Clone the github repositories
 git clone https://github.com/czbiohub/aguamenti
 # Install aguamenti
 cd aguamenti
+conda install --file conda_requirements.txt
 pip install -r requirements.txt
 pip install -e .
 cd
 
 git clone https://github.com/czbiohub/reflow-workflows
+git clone https://github.com/czbiohub/reflow-batches
 
 
 ## Non-interactively generate ssh key
@@ -91,20 +86,18 @@ ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
 
 # Add sourcing of these new files to bashrc/zshrc
 sudo cat $HOME/reflow_profile.sh >> ~/.zprofile
-# source $HOME/reflow_profile.sh
-# sudo cat $HOME/reflow_profile.sh >> ~/.profile
 
-sudo cat $HOME/reflow_login.sh >> ~/.zlogin
-# sudo cat $HOME/reflow_login.sh >> ~/.login
-
-echo 'alias ls="exa --git"' >> $RCFILE
-echo 'alias ll="ls -lha"' >> $RCFILE
+pushd ~/.oh-my-zsh/plugins
+git clone https://github.com/zsh-users/zsh-autosuggestions
+git clone https://github.com/zdharma/fast-syntax-highlighting
+popd
 
 
-# Copy tmux Configurations
-cp /tmp/.tmux.conf $HOME
+# Copy cronjob to cron.d file
+sudo cp /tmp/sync-reflow.sh /etc/cron.d/sync-reflow.sh
 
-ls -lha ~/.ssh
-cat ~/.ssh/authorized_keys
+
+# ls -lha ~/.ssh
+# cat ~/.ssh/authorized_keys
 
 exit 0

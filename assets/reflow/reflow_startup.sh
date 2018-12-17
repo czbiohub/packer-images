@@ -3,6 +3,7 @@
 # Shouldn't be run at build time
 
 # Should be run after aegea launching the instance
+export PATH=$PATH:$HOME/anaconda/bin
 
 AWS_DEFAULT_REGION=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone | sed 's/[a-z]$//')
 AWS_ACCESS_KEY_ID=$(python -c 'import boto3; print(boto3.session.Session().get_credentials().access_key)')
@@ -21,11 +22,21 @@ reflow setup-ec2
 # Add the repository to the config
 echo 'repository: s3,czbiohub-reflow-quickstart-cache' >> ~/.reflow/config.yaml
 
-echo "user: local,$HOST@localhost" >> ~/.reflow/config.yml
+echo "user: local,$(hostname)@localhost" >> ~/.reflow/config.yaml
 git clone https://github.com/czbiohub/reflow-batches
 
 # Get latest versions of aguamenti and reflow-workflows
-pushd ~/aguamenti && git pull origin master
-pushd ~/reflow-workflows && git pull origin master
+pushd ~/aguamenti && git pull
+pushd ~/reflow-workflows && git pull
+pushd ~/reflow-batches && git pull
 popd
 popd
+
+
+
+## Make tmux Session
+tmux -2 new-session -d -s reflow
+tmux split-window -h
+tmux select-pane -t 0
+tmux send-keys "htop" C-m
+tmux select-pane -t 1
