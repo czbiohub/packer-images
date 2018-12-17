@@ -38,5 +38,18 @@ popd
 tmux -2 new-session -d -s reflow
 tmux split-window -h
 tmux select-pane -t 0
+tmux split-window -v
+tmux split-window -v
+# Top left window shows memory and CPU usage
+tmux select-pane -t 0
 tmux send-keys "htop" C-m
+# Middle left window shows number of done, running, canceled, etc jobs
 tmux select-pane -t 1
+tmux send-keys "watch aguamenti status" C-m
+
+# Bottom left window shows currently running reflow processes
+tmux select-pane -t 2
+tmux send-keys "watch reflow ps" C-m
+
+# Change to right pane which is "working" pane for running reflow runbatch
+tmux select-pane -t 3
