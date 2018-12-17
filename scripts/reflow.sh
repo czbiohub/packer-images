@@ -7,6 +7,15 @@ sudo rm /var/lib/dpkg/lock
 sudo dpkg --configure -a
 # while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 1 done
 
+
+# Install zsh and other niceness
+sudo apt-get update
+sudo apt install --yes zsh emacs tree git-core unzip htop tmux
+wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+sudo chsh -s /usr/bin/zsh
+sudo usermod -s /bin/zsh ubuntu
+
+
 # --- Install and Configure Reflow --- #
 # Get release version of reflow
 wget https://github.com/grailbio/reflow/releases/download/reflow0.6.8/reflow0.6.8.linux.amd64
@@ -54,18 +63,14 @@ sudo docker run hello-world
 
 
 
-# Install zsh and other niceness
-sudo apt-get update
-sudo apt install --yes zsh emacs tree git-core unzip htop tmux
-wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
-sudo chsh -s `which zsh`
-sudo usermod -s /bin/zsh ubuntu
-
 # Install exa
 wget https://github.com/ogham/exa/releases/download/v0.8.0/exa-linux-x86_64-0.8.0.zip
 unzip exa-linux-x86_64-0.8.0.zip
 sudo mv exa-linux-x86_64 /usr/local/bin/exa
 sudo chmod ugo+x /usr/local/bin/exa
+
+# Make sure have Python installed
+export PATH=$PATH:$HOME/anaconda/bin
 
 # Clone the github repositories
 git clone https://github.com/czbiohub/aguamenti
