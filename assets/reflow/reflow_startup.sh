@@ -30,11 +30,10 @@ pushd ~/aguamenti && git pull
 pushd ~/reflow-workflows && git pull
 pushd ~/reflow-batches && git pull
 popd
-popd
 
 
 
-## Make tmux Session
+## Make tmux Session with windows setup
 tmux -2 new-session -d -s reflow
 tmux split-window -h
 tmux select-pane -t 0

@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH="/home/ubuntu/.oh-my-zsh"
+export ZSH="/home/ubuntu/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -98,6 +98,9 @@ source $ZSH/oh-my-zsh.sh
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/ubuntu/anaconda/bin:/home/ubuntu/anaconda/bin
 alias ls="exa --git"
 alias ll="ls -lha"
+
+# Don't use vim as the default editor because it is an escape room
+export EDITOR='nano'
 
 # Autostart tmux on zlogin
 zstyle ':omz:module:tmux' auto-start 'yes'

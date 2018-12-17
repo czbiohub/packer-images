@@ -67,7 +67,7 @@
     {
       "type": "file",
       "source": "assets/reflow/.zshrc",
-      "destination": "/home/ubuntu/.zshrc"
+      "destination": "/tmp/.zshrc"
     },
     {
       "type": "file",
