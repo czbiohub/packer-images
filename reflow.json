@@ -71,8 +71,13 @@
     },
     {
       "type": "file",
-      "source": "assets/reflow/cron/sync-reflow.sh",
-      "destination": "/tmp/sync-reflow.sh"
+      "source": "assets/reflow/sync-reflow-aws-github.crontab",
+      "destination": "/home/ubuntu/sync-reflow-aws-github.crontab"
+    },
+    {
+      "type": "file",
+      "source": "assets/reflow/.tmuxinator",
+      "destination": "/home/ubuntu/.tmuxinator"
     },
     {
       "type": "shell",

@@ -102,5 +102,8 @@ alias ll="ls -lha"
 # Don't use vim as the default editor because it is an escape room
 export EDITOR='nano'
 
+# Copy pre-made zshrc file after zsh installation 
+cp /tmp/.zshrc ~/.zshrc
+
 # Autostart tmux on zlogin
 zstyle ':omz:module:tmux' auto-start 'yes'

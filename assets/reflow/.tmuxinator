@@ -1,6 +1,6 @@
 # ~/.tmuxinator/sample.yml
 
-name: sample
+name: reflow
 root: ~/
 
 # Optional. tmux socket
@@ -12,7 +12,7 @@ root: ~/
 # Project hooks
 
 # Runs on project start, always
-#on_project_start: command
+on_project_start: $HOME/
 
 # Run on project start, the first time
 # on_project_first_start: command
@@ -39,10 +39,11 @@ root: ~/
 # startup_window: logs
 
 windows:
-  - editor:
-      layout: main-vertical
+  - dashboard:
+      # Left: htop, watch aguamenti status, watch reflow ps
+      # Right: shell
+      layout: [layout 4b0d,206x56,0,0{103x56,0,0[103x16,0,0,3,103x17,0,17,11,103x21,0,35,21],102x56,104,0,5}]
       panes:
-        - vim
-        - guard
-  - server: bundle exec rails s
-  - logs: tail -f log/development.log
+        - htop
+        - watch aguamenti status
+        - watch reflow ps

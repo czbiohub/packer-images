@@ -10,11 +10,13 @@ sudo dpkg --configure -a
 
 # Install zsh and other niceness
 sudo apt-get update
-sudo apt install --yes zsh emacs tree git-core unzip htop tmux
+sudo apt install --yes zsh emacs tree git-core unzip htop tmux ruby gem
 wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
 sudo chsh -s /usr/bin/zsh
 sudo usermod -s /bin/zsh ubuntu
 
+# Install tmuxinator for easier session management
+sudo gem install tmuxinator
 
 # --- Install and Configure Reflow --- #
 # Get release version of reflow
@@ -99,8 +101,8 @@ popd
 
 
 # Copy cronjob to cron.d file
-sudo cp /tmp/sync-reflow.sh /etc/cron.d/sync-reflow.sh
-
+# sudo cp /tmp/sync-reflow.sh /etc/cron.d/sync-reflow.sh
+crontab $HOME/sync-reflow-aws-github.sh
 
 # ls -lha ~/.ssh
 # cat ~/.ssh/authorized_keys

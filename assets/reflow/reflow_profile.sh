@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Should be run after aegea launching the instance
 export PATH=$PATH:$HOME/anaconda/bin
 

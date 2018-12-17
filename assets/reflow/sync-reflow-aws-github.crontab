@@ -1,4 +1,5 @@
 SHELL=/usr/bin/zsh
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/ubuntu/anaconda/bin:/home/ubuntu/anaconda/bin
 
 # Copy files and logs to AWS EC2
 @hourly ubuntu aws s3 sync /home/ubuntu/reflow-batches s3://czbiohub-reflow-logs/reflow-batches/
