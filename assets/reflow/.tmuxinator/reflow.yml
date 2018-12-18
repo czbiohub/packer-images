@@ -1,4 +1,4 @@
-# ~/.tmuxinator/sample.yml
+# ~/.tmuxinator/reflow.yml
 
 name: reflow
 root: ~/
@@ -12,10 +12,10 @@ root: ~/
 # Project hooks
 
 # Runs on project start, always
-on_project_start: $HOME/
+on_project_start: bash ~/reflow_profile.sh
 
 # Run on project start, the first time
-# on_project_first_start: command
+on_project_first_start: bash ~/reflow_startup.sh
 
 # Run on project start, after the first time
 # on_project_restart: command
@@ -42,8 +42,9 @@ windows:
   - dashboard:
       # Left: htop, watch aguamenti status, watch reflow ps
       # Right: shell
-      layout: [layout 4b0d,206x56,0,0{103x56,0,0[103x16,0,0,3,103x17,0,17,11,103x21,0,35,21],102x56,104,0,5}]
+      layout: main-vertical
       panes:
-        - htop
-        - watch aguamenti status
+        -
         - watch reflow ps
+        - watch aguamenti status
+        - htop

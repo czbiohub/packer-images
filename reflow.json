@@ -77,7 +77,7 @@
     {
       "type": "file",
       "source": "assets/reflow/.tmuxinator",
-      "destination": "/home/ubuntu/.tmuxinator"
+      "destination": "/home/ubuntu"
     },
     {
       "type": "shell",

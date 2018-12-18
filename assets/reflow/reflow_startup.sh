@@ -19,9 +19,9 @@ export AWS_SDK_LOAD_CONFIG=1
 # --- Now we're ready to set up Reflow --- $
 # Send reflow setup commands to bashrc so they get set up for every user's AWS credentials
 reflow setup-ec2
-# reflow setup-dynamodb-assoc czbiohub-reflow-quickstart
 
 # Add the repository to the config
+# reflow setup-dynamodb-assoc czbiohub-reflow-quickstart
 echo 'repository: s3,czbiohub-reflow-quickstart-cache' >> ~/.reflow/config.yaml
 
 echo "user: local,$(hostname)@localhost" >> ~/.reflow/config.yaml
@@ -34,8 +34,7 @@ pushd ~/reflow-batches && git pull
 popd
 
 
-
-## Make tmux Session with windows setup
+# ## Make tmux Session with windows setup
 tmux -2 new-session -d -s reflow
 tmux split-window -h
 tmux select-pane -t 0

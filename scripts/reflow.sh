@@ -102,7 +102,12 @@ popd
 
 # Copy cronjob to cron.d file
 # sudo cp /tmp/sync-reflow.sh /etc/cron.d/sync-reflow.sh
-crontab $HOME/sync-reflow-aws-github.sh
+crontab $HOME/sync-reflow-aws-github.crontab
+
+# Copy pre-made zshrc file after zsh installation
+cp /tmp/.zshrc ~/.zshrc
+
+# mkdir ~/.tmuxinator
 
 # ls -lha ~/.ssh
 # cat ~/.ssh/authorized_keys
