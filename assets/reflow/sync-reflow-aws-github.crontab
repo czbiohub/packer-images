@@ -6,7 +6,3 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/us
 
 # Commit any changes to reflow-batches
 @daily ubuntu cd /home/ubuntu/reflow-batches && git add -A "Auto-commit on $(date) from $(hostname)" && git pull origin master && git push origin master
-
-# Set up AWS configuration and EC2 commands
-@reboot ubuntu source /home/ubuntu/reflow_startup.sh
-@reboot ubuntu /usr/local/bin/mux start reflow
