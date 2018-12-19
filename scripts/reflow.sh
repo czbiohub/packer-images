@@ -109,6 +109,9 @@ cp /tmp/.zshrc ~/.zshrc
 
 # mkdir ~/.tmuxinator
 
+# Store github credentials in a plain file on disk
+git config credential.helper store
+
 # ls -lha ~/.ssh
 # cat ~/.ssh/authorized_keys
 

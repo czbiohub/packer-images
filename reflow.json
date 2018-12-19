@@ -66,6 +66,11 @@
     },
     {
       "type": "file",
+      "source": "assets/reflow/git-commit-reflow-batches.sh",
+      "destination": "/home/ubuntu/git-commit-reflow-batches.sh"
+    },
+      {
+      "type": "file",
       "source": "assets/reflow/.zshrc",
       "destination": "/tmp/.zshrc"
     },
