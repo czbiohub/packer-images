@@ -16,6 +16,7 @@ All AMIs are in the `us-west-2` (Oregon) region. The AMI name consists of the st
 | `czbiohub-nanopore` | Miniconda3 + albacore and pomoxis |
 | `czbiohub-specops` | Miniconda3 + some sequencing, assembly, and nanopore tools |
 | `czbiohub-jupyter` | Miniconda3 with Jupyter installed, see below for instructions |
+| `czbiohub-transrate` | Miniconda3 + Transrate |
 
 The Miniconda AMI and those based on it have 1TB of storage located at `/mnt/data`.
 
