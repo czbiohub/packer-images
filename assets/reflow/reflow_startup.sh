@@ -20,9 +20,10 @@ export AWS_SDK_LOAD_CONFIG=1
 # Send reflow setup commands to bashrc so they get set up for every user's AWS credentials
 reflow setup-ec2
 
-# Add the repository to the config
-# reflow setup-dynamodb-assoc czbiohub-reflow-quickstart
-echo 'repository: s3,czbiohub-reflow-quickstart-cache' >> ~/.reflow/config.yaml
+# Add czbiohub caches to the config
+REFLOW_CONFIG=$HOME/.reflow/config.yaml
+echo 'repository: s3,czbiohub-reflow-quickstart-cache' >> $REFLOW_CONFIG
+echo 'assoc: dynamodb,czbiohub-reflow-quickstart' >> $REFLOW_CONFIG
 
 echo "user: local,$(hostname)@localhost" >> ~/.reflow/config.yaml
 git clone https://github.com/czbiohub/reflow-batches

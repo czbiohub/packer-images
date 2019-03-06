@@ -48,3 +48,13 @@ windows:
         - watch reflow ps
         - watch aguamenti status
         - htop
+  -
+    panes:
+    - watch tail /tmp/git-reflow-batches.out
+    - watch tail /tmp/git-reflow-batches.err
+    - watch tail /tmp/aws-s3-sync-reflow-batches.out
+    - watch tail /tmp/aws-s3-sync-reflow-batches.err
+  - cron_logs:
+    panes:
+      -
+      - tail -f /var/log/syslog | grep -i CRON
