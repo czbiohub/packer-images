@@ -9,6 +9,7 @@
     "tags": {
       "Name": "czbiohub-pacbio"
     },
+    "iam_instance_profile": "S3fromEC2",
     "instance_type": "m5.24xlarge",
     "region": "{{user `aws_region`}}",
     "type": "amazon-ebs",
@@ -36,8 +37,7 @@
   }],
   "provisioners": [{
     "type": "shell",
-    "scripts": ["scripts/sleep_until_dpkg.sh",
-                "scripts/pacbio.sh"],
-    "pause_before": "30s"
+    "scripts": ["scripts/pacbio.sh"],
+    "pause_before": "60s"
   }]
 }
