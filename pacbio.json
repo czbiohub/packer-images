@@ -10,25 +10,42 @@
       "Name": "czbiohub-pacbio"
     },
     "iam_instance_profile": "S3fromEC2",
-    "instance_type": "m5.24xlarge",
+    "instance_type": "t2.micro",
     "region": "{{user `aws_region`}}",
     "type": "amazon-ebs",
     "ssh_username": "ubuntu",
     "source_ami": "ami-0da12486c5bf1b761",
-    "ami_block_device_mappings": [ {
-            "device_name": "/dev/sda1",
-            "volume_size": 16,
-            "delete_on_termination": true
-        } ],
-        "launch_block_device_mappings": [ {
-            "device_name": "/dev/sda1",
-            "volume_size": 16,
-            "delete_on_termination": true
-        } ]
+    "ami_block_device_mappings": [
+      {
+	"device_name": "/dev/sda1",
+	"volume_size": 16,
+	"delete_on_termination": true
+      },
+      {
+	"delete_on_termination": true,
+	"device_name": "/dev/sde",
+	"volume_size": 1000,
+	"volume_type": "standard"
+      }
+    ],
+    "launch_block_device_mappings": [
+      {
+	"device_name": "/dev/sda1",
+	"volume_size": 16,
+	"delete_on_termination": true
+      },
+      {
+	"delete_on_termination": true,
+	"device_name": "/dev/sde",
+	"volume_size": 1000,
+	"volume_type": "standard"
+      }
+    ]
   }],
   "provisioners": [{
     "type": "shell",
-    "scripts": ["scripts/pacbio.sh"],
+    "scripts": ["scripts/format_xvde.sh",
+		"scripts/pacbio.sh"],
     "pause_before": "60s"
   }]
 }
