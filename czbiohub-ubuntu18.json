@@ -1,0 +1,23 @@
+{
+    "min_packer_version": "1.0.0",
+    "variables": {
+	"aws_region": "us-west-2"
+    },
+    "builders": [{
+	"ami_name": "czbiohub-ubuntu18-{{isotime \"2006-01-02\" | clean_ami_name}}",
+	"ami_description": "CZ Biohub base image for Ubuntu 18.04 LTS (Bionic Beaver)",
+	"tags": {
+	    "Name": "czbiohub-ubuntu18.04LTS"
+	},
+	"instance_type": "t2.micro",
+	"region": "{{user `aws_region`}}",
+	"type": "amazon-ebs",
+	"source_ami": "ami-06f2f779464715dc5",
+	"ssh_username": "ubuntu"
+    }],
+    "provisioners": [{
+	"type": "shell",
+	"script": "scripts/base18.sh",
+	"pause_before": "60s"
+    }]
+}
