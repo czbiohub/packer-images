@@ -18,8 +18,6 @@ conda config --add channels defaults
 conda config --add channels conda-forge # additional common tools
 conda config --add channels bioconda # useful bioinformatics
 
-conda install -n root _license
-
 # display info
 conda info -a
 

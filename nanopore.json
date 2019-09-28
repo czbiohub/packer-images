@@ -5,9 +5,11 @@
   },
   "builders": [{
     "ami_name": "czbiohub-nanopore-{{isotime \"2006-01-02\" | clean_ami_name}}",
-    "ami_description": "An Ubuntu 16.04 AMI with Albacore and Pomoxis",
+    "ami_description": "An Ubuntu 18.04 AMI with Albacore and Pomoxis",
     "tags": {
-      "Name": "czbiohub-nanopore"
+      "Name": "czbiohub-nanopore",
+      "Project": "(varies)",
+      "Team Leader": "Jim Karkanias"
     },
     "instance_type": "m4.xlarge",
     "region": "{{user `aws_region`}}",

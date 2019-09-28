@@ -8,13 +8,12 @@ All AMIs are in the `us-west-2` (Oregon) region. The AMI name consists of the st
 
 | Stable Name | Description |
 | ----------- | ----------- |
-| `czbiohub-ubuntu16` | Ubuntu with updates, `make`, `g++`, and `awscli` |
-| `czbiohub-anaconda` | Ubuntu16 + Anaconda3 5.0.1 |
-| `czbiohub-miniconda` | Ubuntu16 + Miniconda3 (Anaconda3 with fewer packages installed) - has 1000 gigabytes of storage at `/mnt/data` |
+| `czbiohub-ubuntu18` | Ubuntu 18.04 with updates, `make`, `g++`, and `awscli` |
+| `czbiohub-miniconda` | Ubuntu18 + Miniconda3 (Anaconda3 with fewer packages installed) - has 1000 gigabytes of storage at `/mnt/data` |
 | `czbiohub-bowtie2` | Miniconda3 + latest Bowtie2 |
 | `czbiohub-star-htseq` | Miniconda3 + latest STAR and HTSeq |
-| `czbiohub-nanopore` | Miniconda3 + albacore and pomoxis |
-| `czbiohub-specops` | Miniconda3 + some sequencing, assembly, and nanopore tools |
+| `czbiohub-nanopore` | Miniconda3 + guppy and pomoxis |
+| `czbiohub-specops` | Miniconda3 + some sequencing, assembly, and (maybe) nanopore tools |
 | `czbiohub-jupyter` | Miniconda3 with Jupyter installed, see below for instructions |
 | `czbiohub-transrate` | Miniconda3 + Transrate |
 
