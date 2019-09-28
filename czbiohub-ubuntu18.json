@@ -1,23 +1,45 @@
 {
-    "min_packer_version": "1.0.0",
-    "variables": {
-	"aws_region": "us-west-2"
+  "min_packer_version": "1.0.0",
+  "variables": {
+    "aws_region": "us-west-2"
+  },
+  "builders": [{
+    "ami_name": "czbiohub-ubuntu18-{{isotime \"2006-01-02\" | clean_ami_name}}-bigroot",
+    "ami_description": "CZ Biohub base image for Ubuntu 18.04",
+    "tags": {
+      "Name": "czbiohub-ubuntu18",
+      "Project": "(varies)",
+      "Team Leader": "Jim Karkanias"
     },
-    "builders": [{
-	"ami_name": "czbiohub-ubuntu18-{{isotime \"2006-01-02\" | clean_ami_name}}",
-	"ami_description": "CZ Biohub base image for Ubuntu 18.04 LTS (Bionic Beaver)",
-	"tags": {
-	    "Name": "czbiohub-ubuntu18.04LTS"
-	},
-	"instance_type": "t2.micro",
-	"region": "{{user `aws_region`}}",
-	"type": "amazon-ebs",
-	"source_ami": "ami-06f2f779464715dc5",
-	"ssh_username": "ubuntu"
+    "instance_type": "t2.micro",
+    "region": "{{user `aws_region`}}",
+    "type": "amazon-ebs",
+    "source_ami_filter": {
+      "filters": {
+        "virtualization-type": "hvm",
+        "architecture": "x86_64",
+        "name": "*ubuntu-bionic-18.04-amd64-server-*",
+        "block-device-mapping.volume-type": "gp2",
+        "root-device-type": "ebs"
+      },
+      "owners": ["099720109477"],
+      "most_recent": true
+    },
+    "ssh_username": "ubuntu",
+    "ami_block_device_mappings": [{
+      "device_name": "/dev/sda1",
+      "volume_size": 16,
+      "delete_on_termination": true
     }],
-    "provisioners": [{
-	"type": "shell",
-	"script": "scripts/base18.sh",
-	"pause_before": "60s"
+    "launch_block_device_mappings": [{
+      "device_name": "/dev/sda1",
+      "volume_size": 16,
+      "delete_on_termination": true
     }]
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "script": "scripts/sleep_until_dpkg.sh",
+    "pause_before": "60s"
+  }]
 }

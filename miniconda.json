@@ -5,10 +5,11 @@
   },
   "builders": [{
     "ami_name": "czbiohub-miniconda-{{isotime \"2006-01-02\" | clean_ami_name}}",
-    "ami_description": "An Ubuntu 16.04 AMI with Miniconda3",
-    "ami_regions": ["us-east-1"],
+    "ami_description": "An Ubuntu 18.04 AMI with Miniconda3",
     "tags": {
-      "Name": "czbiohub-miniconda"
+      "Name": "czbiohub-miniconda",
+      "Project": "(varies)",
+      "Team Leader": "Jim Karkanias"
     },
     "ami_block_device_mappings": [{
       "delete_on_termination": true,
@@ -28,7 +29,7 @@
     "source_ami_filter": {
       "filters": {
         "virtualization-type": "hvm",
-        "name": "czbiohub-ubuntu16-*",
+        "name": "czbiohub-ubuntu18-*",
         "root-device-type": "ebs"
       },
       "owners": [423543210473],
@@ -38,9 +39,10 @@
   }],
   "provisioners": [{
     "type": "shell",
-    "scripts": ["scripts/format_xvde.sh",
-                "scripts/miniconda.sh",
-                "scripts/conda_setup.sh"],
+    "scripts": [
+      "scripts/format_xvde.sh",
+      "scripts/miniconda.sh"
+    ],
     "pause_before": "30s"
   }]
 }
