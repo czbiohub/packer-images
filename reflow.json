@@ -50,6 +50,41 @@
       "destination": "/tmp/system.conf"
     },
     {
+      "type": "file",
+      "source": "assets/reflow/reflow_profile.sh",
+      "destination": "/tmp/reflow_profile.sh"
+    },
+    {
+      "type": "file",
+      "source": "assets/reflow/reflow_startup.sh",
+      "destination": "/tmp/reflow_startup.sh"
+    },
+    {
+      "type": "file",
+      "source": "assets/reflow/.tmux.conf",
+      "destination": "/home/ubuntu/.tmux.conf"
+    },
+    {
+      "type": "file",
+      "source": "assets/reflow/git-commit-reflow-batches.sh",
+      "destination": "/home/ubuntu/git-commit-reflow-batches.sh"
+    },
+      {
+      "type": "file",
+      "source": "assets/reflow/.zshrc",
+      "destination": "/tmp/.zshrc"
+    },
+    {
+      "type": "file",
+      "source": "assets/reflow/sync-reflow-aws-github.crontab",
+      "destination": "/home/ubuntu/sync-reflow-aws-github.crontab"
+    },
+    {
+      "type": "file",
+      "source": "assets/reflow/.tmuxinator",
+      "destination": "/home/ubuntu"
+    },
+    {
       "type": "shell",
       "script": "scripts/reflow.sh",
       "pause_before": "60s"

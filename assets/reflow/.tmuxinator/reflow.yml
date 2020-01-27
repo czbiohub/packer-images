@@ -1,0 +1,60 @@
+# ~/.tmuxinator/reflow.yml
+
+name: reflow
+root: ~/
+
+# Optional. tmux socket
+# socket_name: foo
+
+# Note that the pre and post options have been deprecated and will be replaced by
+# project hooks.
+
+# Project hooks
+
+# Runs on project start, always
+on_project_start: bash ~/reflow_profile.sh
+
+# Run on project start, the first time
+on_project_first_start: bash ~/reflow_startup.sh
+
+# Run on project start, after the first time
+# on_project_restart: command
+
+# Run on project exit ( detaching from tmux session )
+# on_project_exit: command
+
+# Run on project stop
+# on_project_stop: command
+
+# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+# pre_window: rbenv shell 2.0.0-p247
+
+# Pass command line options to tmux. Useful for specifying a different tmux.conf.
+# tmux_options: -f ~/.tmux.mac.conf
+
+# Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
+# tmux_command: byobu
+
+# Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
+# startup_window: logs
+
+windows:
+  - dashboard:
+      # Left: htop, watch aguamenti status, watch reflow ps
+      # Right: shell
+      layout: main-vertical
+      panes:
+        -
+        - watch reflow ps
+        - watch aguamenti status
+        - htop
+  -
+    panes:
+    - watch tail /tmp/git-reflow-batches.out
+    - watch tail /tmp/git-reflow-batches.err
+    - watch tail /tmp/aws-s3-sync-reflow-batches.out
+    - watch tail /tmp/aws-s3-sync-reflow-batches.err
+  - cron_logs:
+    panes:
+      -
+      - tail -f /var/log/syslog | grep -i CRON

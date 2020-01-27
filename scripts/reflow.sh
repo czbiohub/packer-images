@@ -8,50 +8,28 @@ sudo dpkg --configure -a
 # while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 1 done
 
 
-# Install latest version of go
-echo "Install latest version of go"
-sudo add-apt-repository ppa:gophers/archive
+# Install zsh and other niceness
 sudo apt-get update
-sudo apt-get install --allow-unauthenticated --yes golang-1.10-go
+sudo apt install --yes zsh emacs tree git-core unzip htop tmux ruby gem
+wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+sudo chsh -s /usr/bin/zsh
+sudo usermod -s /bin/zsh ubuntu
 
-# Add go to path
-export PATH=/usr/lib/go-1.10/bin:$PATH
-echo "export PATH=/usr/lib/go-1.10/bin:$PATH" >> ~/.bashrc
+# Install tmuxinator for easier session management
+sudo gem install tmuxinator
 
-# Create a home for go packages
-mkdir $HOME/gocode
-
-# Set home for go packages
-export GOPATH=$HOME/gocode
-echo "export GOPATH=$HOME/gocode" >> ~/.bashrc
-
-# Make sure go binaries are in path
-export PATH=$PATH:$GOPATH/bin
-echo "export PATH=$PATH:$GOPATH/bin" >> ~/.bashrc
-
-# Tell Reflow to load AWS credentials the way Aegea stores them
-export AWS_SDK_LOAD_CONFIG=1
-echo "AWS_SDK_LOAD_CONFIG=1" >> ~/.bashrc
-
+# --- Install and Configure Reflow --- #
 # Get release version of reflow
 wget https://github.com/grailbio/reflow/releases/download/reflow0.6.8/reflow0.6.8.linux.amd64
 sudo cp reflow0.6.8.linux.amd64 /usr/local/bin/reflow
 sudo chmod ugo+x /usr/local/bin/reflow
 
-# echo "Installing AWS dependencies"
-# go get github.com/aws/aws-sdk-go
-# go get github.com/cihub/seelog
-# go get github.com/pkg/errors
-#
-# echo "Get and install reflow package"
-# # Add reflow package
-# go get github.com/grailbio/reflow
-#
-# # Install reflow binary
-# go install github.com/grailbio/reflow/cmd/reflow
-
 # test reflow command
 reflow -help
+
+# Copy Reflow Configurations to the home directory
+sudo cp /tmp/reflow*.sh $HOME
+# --- END install and configure Reflow --- #
 
 # These files are necessary to increase the number of open file limits
 # so reflow can run on 1000s of files at once
@@ -85,11 +63,56 @@ sudo apt-get update
 sudo apt-get install --yes docker-ce
 sudo docker run hello-world
 
-# Send reflow setup commands to bashrc so they get set up for every user's AWS credentials
-echo "AWS_SDK_LOAD_CONFIG=1 reflow setup-ec2" >> ~/.bashrc
-echo "AWS_SDK_LOAD_CONFIG=1 reflow setup-dynamodb-assoc czbiohub-reflow-quickstart" >> ~/.bashrc
-echo "echo 'repository: s3,czbiohub-reflow-quickstart-cache' >> ~/.reflow/config.yaml" >> ~/.bashrc
 
-source ~/.bashrc
+
+# Install exa
+wget https://github.com/ogham/exa/releases/download/v0.8.0/exa-linux-x86_64-0.8.0.zip
+unzip exa-linux-x86_64-0.8.0.zip
+sudo mv exa-linux-x86_64 /usr/local/bin/exa
+sudo chmod ugo+x /usr/local/bin/exa
+
+# Make sure have Python installed
+export PATH=$PATH:$HOME/anaconda/bin
+
+# Clone the github repositories
+git clone https://github.com/czbiohub/aguamenti
+# Install aguamenti
+cd aguamenti
+conda install --file conda_requirements.txt
+pip install -r requirements.txt
+pip install -e .
+cd
+
+git clone https://github.com/czbiohub/reflow-workflows
+git clone https://github.com/czbiohub/reflow-batches
+
+
+## Non-interactively generate ssh key
+ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
+
+
+# Add sourcing of these new files to bashrc/zshrc
+sudo cat $HOME/reflow_profile.sh >> ~/.zprofile
+
+pushd ~/.oh-my-zsh/plugins
+git clone https://github.com/zsh-users/zsh-autosuggestions
+git clone https://github.com/zdharma/fast-syntax-highlighting
+popd
+
+
+# Copy cronjob to cron.d file
+# sudo cp /tmp/sync-reflow.sh /etc/cron.d/sync-reflow.sh
+crontab $HOME/sync-reflow-aws-github.crontab
+
+# Copy pre-made zshrc file after zsh installation
+cp /tmp/.zshrc ~/.zshrc
+
+# mkdir ~/.tmuxinator
+
+# Store github credentials in a plain file on disk
+git config credential.helper store
+
+# ls -lha ~/.ssh
+# cat ~/.ssh/authorized_keys
 
 exit 0
